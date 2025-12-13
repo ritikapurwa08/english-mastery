@@ -1,0 +1,60 @@
+$ next build
+   Γû▓ Next.js 16.0.10 (Turbopack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+Error: Can't resolve 'tailwind.config.ts' in 'E:\projects\english-mastery\app'
+    [at finishWithoutResolve (E:\projects\english-mastery\node_modules\enhanced-resolve\lib\Resolver.js:565:18)]
+    [at E:\projects\english-mastery\node_modules\enhanced-resolve\lib\Resolver.js:657:14]
+    [at E:\projects\english-mastery\node_modules\enhanced-resolve\lib\Resolver.js:718:5]
+    [at eval (eval at create (E:\projects\english-mastery\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)]
+    [at E:\projects\english-mastery\node_modules\enhanced-resolve\lib\Resolver.js:718:5]
+    [at eval (eval at create (E:\projects\english-mastery\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)]
+    [at E:\projects\english-mastery\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43]
+    [at E:\projects\english-mastery\node_modules\enhanced-resolve\lib\Resolver.js:718:5]
+    [at eval (eval at create (E:\projects\english-mastery\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)]
+    [at E:\projects\english-mastery\node_modules\enhanced-resolve\lib\Resolver.js:718:5] {
+  details: "resolve 'tailwind.config.ts' in 'E:\\projects\\english-mastery\\app'\n" +
+    '  Parsed request is a module\n' +
+    '  using description file: E:\\projects\\english-mastery\\package.json (relative path: ./app)\n' +
+    '    resolve as module\n' +
+    "      E:\\projects\\english-mastery\\app\\node_modules doesn't exist or is not a directory\n" +
+    '      looking for modules in E:\\projects\\english-mastery\\node_modules\n' +
+    '        single file module\n' +
+    '          using description file: E:\\projects\\english-mastery\\package.json (relative path: ./node_modules/tailwind.config.ts)\n' +
+    '            no extension\n' +
+    "              E:\\projects\\english-mastery\\node_modules\\tailwind.config.ts doesn't exist\n" +
+    '            .js\n' +
+    "              E:\\projects\\english-mastery\\node_modules\\tailwind.config.ts.js doesn't exist\n" +
+    '            .json\n' +
+    "              E:\\projects\\english-mastery\\node_modules\\tailwind.config.ts.json doesn't exist\n" +
+    '            .node\n' +
+    "              E:\\projects\\english-mastery\\node_modules\\tailwind.config.ts.node doesn't exist\n" +
+    '            .ts\n' +
+    "              E:\\projects\\english-mastery\\node_modules\\tailwind.config.ts.ts doesn't exist\n" +
+    "        E:\\projects\\english-mastery\\node_modules\\tailwind.config.ts doesn't exist\n" +
+    "      E:\\projects\\node_modules doesn't exist or is not a directory\n" +
+    "      E:\\node_modules doesn't exist or is not a directory"
+}
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./app/globals.css
+Error evaluating Node.js code
+CssSyntaxError: tailwindcss: E:\projects\english-mastery\app\globals.css:1:1: Can't resolve 'tailwind.config.ts' in 'E:\projects\english-mastery\app'
+    at Input.error (node_modules/postcss/lib/input.js:135:16) [E:\projects\english-mastery\.next\build\chunks\node_modules_fe693df6._.js:4651:22]
+    at Root.error (node_modules/postcss/lib/node.js:146:32) [E:\projects\english-mastery\.next\build\chunks\node_modules_fe693df6._.js:928:38]
+    [at Object.Once (E:\projects\english-mastery\node_modules\@tailwindcss\postcss\dist\index.js:10:6911)]
+    at async LazyResult.runAsync (node_modules/postcss/lib/lazy-result.js:293:11) [E:\projects\english-mastery\.next\build\chunks\node_modules_fe693df6._.js:6206:21]
+    at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [E:\projects\english-mastery\.next\build\chunks\[root-of-the-server]__51225daf._.js:146:36]
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [E:\projects\english-mastery\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31]
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+    at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [E:\projects\english-mastery\.next\build\chunks\[root-of-the-server]__51225daf._.js:146:36])
+    at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [E:\projects\english-mastery\.next\build\chunks\[root-of-the-server]__974941ed._.js:443:31])
+error: script "build" exited with code 1
