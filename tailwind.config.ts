@@ -26,6 +26,10 @@ const config = {
         ring: "var(--ring)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        fontFamily: {
+          sans: ["var(--font-geist-sans)"],
+          mono: ["var(--font-geist-mono)"],
+        },
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",

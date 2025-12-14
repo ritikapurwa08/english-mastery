@@ -3,13 +3,13 @@
 import { useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { BottomNav } from "@/components/BottomNav";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Flame, CheckCircle, Flag, ArrowRight, Repeat, SpellCheck, MessageCircle } from "lucide-react";
+import { Flame, CheckCircle, Flag, Repeat, SpellCheck, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "@/lib/animations";
 import { ModeToggle } from "@/components/theme-toggle-button";
+import { VercelHero } from "@/components/ui/vercel-hero";
 
 export default function Home() {
   const stats = useQuery(api.dashboard.getStats);
@@ -31,44 +31,16 @@ export default function Home() {
 
         <Link href="/profile" className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden ring-2 ring-transparent hover:ring-blue-600 transition-all">
           {user?.image ? (
-
               <ModeToggle />
-
           ) : (
              <span className="text-slate-500 font-bold">U</span>
           )}
         </Link>
       </header>
 
+      <VercelHero />
+
       <main className="flex flex-col gap-6 p-4 max-w-md mx-auto">
-        {/* Hero */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full"
-        >
-          <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-600/10 group h-105">
-             {/* BG Image placeholder (using abstract gradient for now if image fails) */}
-             <div className="absolute inset-0 bg-linear-to-br from-blue-600 to-purple-700"></div>
-             {/* Optional Image Overlay */}
-             <div className="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-overlay" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80')" }}></div>
-
-             <div className="absolute inset-0 flex flex-col justify-end p-6 bg-linear-to-b from-transparent via-transparent to-black/80">
-                <div className="mb-2 inline-flex self-start rounded-md bg-blue-600/20 backdrop-blur-md px-2 py-1 border border-blue-500/30">
-                  <span className="text-xs font-bold text-blue-200 uppercase tracking-wider">Daily Challenge</span>
-                </div>
-                <h1 className="text-3xl font-bold text-white leading-tight mb-2 drop-shadow-md">Ready to master English?</h1>
-                <p className="text-slate-200 text-base font-medium mb-6 max-w-[90%] drop-shadow-sm">Expand your world, one word at a time.</p>
-                <Link href="/learn">
-                    <Button className="w-full h-14 rounded-xl text-base font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/30">
-                        Start Learning <ArrowRight className="ml-2" size={20} />
-                    </Button>
-                </Link>
-             </div>
-          </div>
-        </motion.section>
-
         {/* Stats Row */}
         <motion.section
             variants={staggerContainer}

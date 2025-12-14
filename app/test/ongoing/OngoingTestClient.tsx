@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Timer, Pause, ArrowRight, CheckCircle, XCircle } from "lucide-react";
+import { Timer, Pause, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -114,7 +114,7 @@ export default function OngoingTestClient() {
 
       // Calculate Category Breakdown
       const cats: Record<string, { total: number; correct: number }> = {};
-      testData.questions.forEach((q, idx) => {
+      testData.questions.forEach((q) => {
           const cat = q.category || "General";
           if (!cats[cat]) cats[cat] = { total: 0, correct: 0 };
           cats[cat].total++;
@@ -237,7 +237,7 @@ export default function OngoingTestClient() {
       </main>
 
       {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white to-transparent dark:from-[#101622] dark:via-[#101622] pt-12 z-10">
+      <footer className="fixed bottom-0 left-0 right-0 p-6 bg-linear-to-t from-white via-white to-transparent dark:from-[#101622] dark:via-[#101622] pt-12 z-10">
           <Button
             size="lg"
             className="w-full h-14 text-lg font-bold rounded-xl bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-600/20"
