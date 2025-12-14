@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { BottomNav } from "@/components/BottomNav";
+import { Sidebar } from "@/components/Sidebar"; // Assuming Sidebar is global now? Or reusing Home layout?
+// For this rewrite, I'll assume we wrap in a similar layout or just use standalone page with Sidebar.
+// The user asked for "Website Modification", likely implying a shared layout.
+// But for now, let's keep it simple and include Sidebar if possible, or just the content.
+// The Home page imports Sidebar. Let's do the same here for consistency.
+
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import { CheckCircle, Circle, Timer, BookOpen, MessageCircle, SpellCheck, Repeat } from "lucide-react";
+import { CheckCircle2, Circle, Timer, BookOpen, MessageCircle, SpellCheck, Repeat, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import Link from "next/link";
 
 const CATEGORIES = [
   { id: "vocabulary", label: "Vocabulary", icon: BookOpen },
@@ -22,7 +26,10 @@ const CATEGORIES = [
 export default function TestPage() {
   const router = useRouter();
   const generateTest = useMutation(api.tests.generateTest);
+  const user = useQuery(api.users.viewer);
+  const firstName = user?.name?.split(' ')[0] || 'User';
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(["vocabulary"]);
   const [questionCount, setQuestionCount] = useState(10);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -45,10 +52,6 @@ export default function TestPage() {
             questionCount: questionCount
         });
 
-        // Pass test data to the runner via localStorage or Context or URL params.
-        // For security/cleanliness, URL params or Context is better.
-        // But the questions list might be large.
-        // We'll store it in sessionStorage for this MVP flow.
         sessionStorage.setItem("currentTest", JSON.stringify(test));
         router.push("/test/ongoing");
     } catch (err) {
@@ -60,109 +63,133 @@ export default function TestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#101622] pb-24 font-sans flex flex-col">
-      {/* Header */}
-      <header className="sticky top-0 z-30 bg-white/95 dark:bg-[#101622]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-4 flex items-center">
-         <h1 className="flex-1 text-center text-lg font-bold text-slate-900 dark:text-white">New Test</h1>
-      </header>
+    <div className="flex min-h-screen bg-background text-zinc-200 font-sans selection:bg-indigo-500/30">
+       <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
 
-      <main className="p-4 flex-1 w-full max-w-md mx-auto space-y-6">
+       <main className="flex-1 flex flex-col min-w-0 pb-24 md:pb-0 relative">
+          {/* Header */}
+            <header className="h-16 border-b border-zinc-800 bg-black/50 backdrop-blur-md sticky top-0 z-20 px-6 flex items-center justify-between">
+                <div className="flex items-center lg:hidden">
+                    <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)}>
+                        <Menu className="w-5 h-5" />
+                    </Button>
+                </div>
 
-        {/* Categories */}
-        <section>
-            <div className="flex justify-between items-center mb-3 px-1">
-                <h3 className="font-bold text-slate-800 dark:text-slate-200">Select Categories</h3>
-                <button
-                    onClick={() => setSelectedCategories(CATEGORIES.map(c => c.id))}
-                    className="text-sm font-medium text-blue-600 hover:text-blue-500"
-                >
-                    Select All
-                </button>
-            </div>
+                <h1 className="text-lg font-bold text-white hidden md:block">New Test</h1>
 
-            <div className="grid grid-cols-2 gap-3">
-                {CATEGORIES.map((cat) => {
-                    const isSelected = selectedCategories.includes(cat.id);
-                    const Icon = cat.icon;
-                    return (
-                        <motion.div
-                            key={cat.id}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => toggleCategory(cat.id)}
-                            className={cn(
-                                "relative p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col gap-3",
-                                isSelected
-                                    ? "bg-blue-600/10 border-blue-600"
-                                    : "bg-white dark:bg-[#1e2229] border-transparent hover:border-slate-200 dark:hover:border-slate-700"
-                            )}
-                        >
-                            <div className={cn("absolute top-3 right-3 transition-colors", isSelected ? "text-blue-600" : "text-slate-300 dark:text-slate-600")}>
-                                {isSelected ? <CheckCircle size={20} className="fill-blue-600/20" /> : <Circle size={20} />}
+                <div className="flex items-center space-x-4 ml-auto">
+                    <Link href="/profile" className="w-8 h-8 rounded-full bg-linear-to-tr from-indigo-500 to-purple-500 border border-zinc-700 flex items-center justify-center text-xs font-bold text-white uppercase">
+                        {firstName.slice(0, 2)}
+                    </Link>
+                </div>
+            </header>
+
+          <div className="flex-1 p-6 overflow-y-auto w-full max-w-md mx-auto space-y-8">
+
+            {/* Categories Selection */}
+            <section>
+                <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-bold text-white">Select Categories</h3>
+                    <button
+                        onClick={() => setSelectedCategories(CATEGORIES.map(c => c.id))}
+                        className="text-xs font-bold text-indigo-400 hover:text-indigo-300 uppercase tracking-wider"
+                    >
+                        Select All
+                    </button>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                    {CATEGORIES.map((cat) => {
+                        const isSelected = selectedCategories.includes(cat.id);
+                        const Icon = cat.icon;
+                        return (
+                            <div
+                                key={cat.id}
+                                onClick={() => toggleCategory(cat.id)}
+                                className={cn(
+                                    "cursor-pointer group flex items-center justify-between p-4 border rounded-xl shadow-sm transition-all active:scale-[0.98]",
+                                    isSelected
+                                        ? "bg-indigo-600/10 border-indigo-600 shadow-indigo-500/10"
+                                        : "bg-zinc-900/50 border-zinc-800 hover:border-zinc-700"
+                                )}
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className={cn(
+                                        "flex items-center justify-center h-10 w-10 rounded-lg transition-colors",
+                                        isSelected ? "bg-indigo-600 text-white" : "bg-zinc-800 text-zinc-400"
+                                    )}>
+                                        <Icon size={20} />
+                                    </div>
+                                    <div className="text-left">
+                                        <h4 className={cn("text-sm font-bold", isSelected ? "text-white" : "text-zinc-300")}>{cat.label}</h4>
+                                        <p className="text-xs text-zinc-500">Practice {cat.label.toLowerCase()}</p>
+                                    </div>
+                                </div>
+                                {isSelected ? (
+                                    <CheckCircle2 className="text-indigo-500" size={20} />
+                                ) : (
+                                    <Circle className="text-zinc-700 group-hover:text-zinc-500" size={20} />
+                                )}
                             </div>
-
-                            <div className={cn(
-                                "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
-                                isSelected ? "bg-blue-600 text-white" : "bg-slate-100 dark:bg-slate-700 text-slate-500"
-                            )}>
-                                <Icon size={20} />
-                            </div>
-                            <span className={cn("font-bold text-sm", isSelected ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400")}>
-                                {cat.label}
-                            </span>
-                        </motion.div>
-                    );
-                })}
-            </div>
-        </section>
-
-        {/* Settings */}
-        <section className="bg-white dark:bg-[#1e2229] rounded-xl p-4 border border-slate-200 dark:border-slate-800 space-y-6">
-             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                    <Timer className="text-blue-600" size={20} />
-                    <span className="font-medium text-slate-900 dark:text-white">Time Limit</span>
+                        );
+                    })}
                 </div>
-                <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold px-2 py-1 rounded">
-                    Untimed (MVP)
-                </span>
-             </div>
+            </section>
 
-             <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                    <BookOpen className="text-blue-600" size={20} />
-                    <span className="font-medium text-slate-900 dark:text-white">Question Count</span>
-                </div>
-                <div className="grid grid-cols-4 gap-2">
-                    {[10, 20, 30, 50].map((count) => (
-                        <button
-                            key={count}
-                            onClick={() => setQuestionCount(count)}
-                            className={cn(
-                                "py-2 rounded-lg text-sm font-bold border transition-all",
-                                questionCount === count
-                                    ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-600/20"
-                                    : "bg-transparent text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
-                            )}
-                        >
-                            {count}
-                        </button>
-                    ))}
-                </div>
-             </div>
-        </section>
+            {/* Test Settings */}
+            <section className="bg-zinc-900/40 rounded-xl p-5 border border-zinc-800 space-y-6">
+                 <div>
+                    <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                            <Timer className="text-indigo-500" size={20} />
+                            <span className="font-bold text-white">Time Limit</span>
+                        </div>
+                        <span className="bg-indigo-500/20 text-indigo-400 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                            Untimed
+                        </span>
+                    </div>
+                 </div>
 
-        <Button
-            size="lg"
-            className="w-full h-14 text-lg font-bold rounded-xl bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-600/20"
-            disabled={selectedCategories.length === 0 || isGenerating}
-            onClick={handleStartTest}
-        >
-            {isGenerating ? "Preparing Test..." : "Start Test"}
-        </Button>
+                 <div className="space-y-3">
+                    <div className="flex items-center gap-2 mb-3">
+                        <BookOpen className="text-indigo-500" size={20} />
+                        <span className="font-bold text-white">Question Count</span>
+                    </div>
+                    <div className="grid grid-cols-4 gap-2">
+                        {[10, 20, 30, 50].map((count) => (
+                            <button
+                                key={count}
+                                onClick={() => setQuestionCount(count)}
+                                className={cn(
+                                    "py-2.5 rounded-lg text-sm font-bold border transition-all",
+                                    questionCount === count
+                                        ? "bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-600/20"
+                                        : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800 hover:text-white"
+                                )}
+                            >
+                                {count}
+                            </button>
+                        ))}
+                    </div>
+                 </div>
+            </section>
 
-      </main>
+          </div>
 
-      <BottomNav />
+          {/* Sticky Start Button area */}
+          <div className="sticky bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black via-black to-transparent z-10 w-full max-w-md mx-auto">
+             <Button
+                variant="accent"
+                className="w-full h-14 text-base font-bold shadow-xl shadow-indigo-500/20"
+                disabled={selectedCategories.length === 0 || isGenerating}
+                onClick={handleStartTest}
+                isLoading={isGenerating}
+            >
+                {isGenerating ? "Generating..." : "Start Test"}
+            </Button>
+          </div>
+
+       </main>
     </div>
   );
 }

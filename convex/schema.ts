@@ -15,6 +15,7 @@ export default defineSchema({
     isAnonymous: v.optional(v.boolean()),
     // Custom user fields
     dailyGoal: v.optional(v.number()), // e.g. 10 words per day
+    weeklyGoal: v.optional(v.number()), // e.g. 50 words per week
     streak: v.optional(v.number()),
     lastLogin: v.optional(v.number()),
   }).index("email", ["email"]),
@@ -39,7 +40,8 @@ export default defineSchema({
   })
   .index("by_text", ["text"])
   .index("by_step", ["step"])
-  .index("by_difficulty", ["difficulty"]),
+  .index("by_difficulty", ["difficulty"])
+  .searchIndex("search_text", { searchField: "text" }),
 
   questions: defineTable({
     type: v.union(v.literal("multiple-choice"), v.literal("fill-blank"), v.literal("boolean")),

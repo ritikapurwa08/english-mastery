@@ -1,95 +1,86 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@config "../tailwind.config.ts";
 
-/* Custom Variant for Dark Mode - v4 style if needed, but 'class' mode in config handles .dark class usually.
-   However, css variables rely on .dark class. */
-@custom-variant dark (&:is(.dark *));
+@theme {
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-space), sans-serif;
+  --font-hindi: var(--font-noto-sans), sans-serif;
 
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.147 0.004 49.25);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.147 0.004 49.25);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.147 0.004 49.25);
-  --primary: oklch(0.216 0.006 56.043);
-  --primary-foreground: oklch(0.985 0.001 106.423);
-  --secondary: oklch(0.97 0.001 106.424);
-  --secondary-foreground: oklch(0.216 0.006 56.043);
-  --muted: oklch(0.97 0.001 106.424);
-  --muted-foreground: oklch(0.553 0.013 58.071);
-  --accent: oklch(0.97 0.001 106.424);
-  --accent-foreground: oklch(0.216 0.006 56.043);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.923 0.003 48.717);
-  --input: oklch(0.923 0.003 48.717);
-  --ring: oklch(0.709 0.01 56.259);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0.001 106.423);
-  --sidebar-foreground: oklch(0.147 0.004 49.25);
-  --sidebar-primary: oklch(0.216 0.006 56.043);
-  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch(0.97 0.001 106.424);
-  --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
-  --sidebar-border: oklch(0.923 0.003 48.717);
-  --sidebar-ring: oklch(0.709 0.01 56.259);
-}
+  --color-background: #050505;
+  --color-surface: #0a0a0a;
 
-.dark {
-  --background: oklch(0.147 0.004 49.25);
-  --foreground: oklch(0.985 0.001 106.423);
-  --card: oklch(0.216 0.006 56.043);
-  --card-foreground: oklch(0.985 0.001 106.423);
-  --popover: oklch(0.216 0.006 56.043);
-  --popover-foreground: oklch(0.985 0.001 106.423);
-  --primary: oklch(0.923 0.003 48.717);
-  --primary-foreground: oklch(0.216 0.006 56.043);
-  --secondary: oklch(0.268 0.007 34.298);
-  --secondary-foreground: oklch(0.985 0.001 106.423);
-  --muted: oklch(0.268 0.007 34.298);
-  --muted-foreground: oklch(0.709 0.01 56.259);
-  --accent: oklch(0.268 0.007 34.298);
-  --accent-foreground: oklch(0.985 0.001 106.423);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.553 0.013 58.071);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.216 0.006 56.043);
-  --sidebar-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch(0.268 0.007 34.298);
-  --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.553 0.013 58.071);
-}
+  --color-border-subtle: #27272a;
+  --color-border: #18181b;
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
+  --color-accent: #6366f1;
+  --color-accent-glow: rgba(99, 102, 241, 0.5);
+
+  --color-zinc-950: #09090b;
+  --color-zinc-900: #18181b;
+  --color-zinc-800: #27272a;
+  --color-indigo-600: #4f46e5;
+  --color-indigo-500: #6366f1;
+
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes shimmer {
+    from { background-position: 0 0; }
+    to { background-position: -200% 0; }
   }
 }
-@utility no-scrollbar {
-  /* Chrome, Safari and Opera */
-  &::-webkit-scrollbar {
+
+/* Base Styles */
+body {
+  @apply bg-background text-zinc-200 antialiased selection:bg-accent/30 selection:text-white;
+}
+
+/* Utilities */
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px var(--color-accent-glow);
+  }
+
+  .bento-card {
+    @apply bg-surface border border-zinc-900 relative overflow-hidden;
+  }
+
+  /* Top Border Shimmer Effect for Cards */
+  .bento-card::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  }
+
+  /* Background Grid Pattern */
+  .bg-grid-pattern {
+    background-image: linear-gradient(to right, #18181b 1px, transparent 1px),
+                      linear-gradient(to bottom, #18181b 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  }
+
+  .glass-panel {
+    @apply bg-zinc-900/60 backdrop-blur-xl border border-white/10;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #18181b;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #52525b;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  /* IE and Edge */
-  -ms-overflow-style: none;
-  /* Firefox */
-  scrollbar-width: none;
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

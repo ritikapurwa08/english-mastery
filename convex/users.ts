@@ -18,6 +18,7 @@ export const viewer = query({
 export const updateSettings = mutation({
   args: {
     dailyGoal: v.optional(v.number()),
+    weeklyGoal: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
@@ -25,6 +26,7 @@ export const updateSettings = mutation({
 
     await ctx.db.patch(userId, {
         dailyGoal: args.dailyGoal,
+        weeklyGoal: args.weeklyGoal,
     });
   },
 });

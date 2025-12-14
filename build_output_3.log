@@ -1,0 +1,21 @@
+$ next build --webpack
+   Γû▓ Next.js 16.0.10 (webpack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ Γ£ô (pwa) Compiling for server...
+ Γ£ô (pwa) Compiling for server...
+ Γ£ô (pwa) Compiling for client (static)...
+ Γùï (pwa) Service worker: E:\projects\english-mastery\public\sw.js
+ Γùï (pwa)   URL: /sw.js
+ Γùï (pwa)   Scope: /
+Failed to compile.
+
+./app/page.tsx
+Module not found: Can't resolve '@/components/ui/badge'
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+> Build failed because of webpack errors
+error: script "build" exited with code 1

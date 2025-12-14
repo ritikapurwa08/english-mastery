@@ -1,118 +1,54 @@
 import type { Config } from "tailwindcss";
-import tailwindAnimate from "tailwindcss-animate";
-import plugin from "tailwindcss/plugin";
 
-const config = {
-  darkMode: "class",
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+const config: Config = {
+    darkMode: "class",
+    content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "sans-serif"],
+        display: ["var(--font-space)", "sans-serif"],
+        hindi: ["var(--font-noto-sans)", "sans-serif"],
+      },
       colors: {
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        fontFamily: {
-          sans: ["var(--font-geist-sans)"],
-          mono: ["var(--font-geist-mono)"],
-        },
-        primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
-        },
-        secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
-        },
-        destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
+        // Architectural Palette
+        background: "#050505", // Deepest black
+        surface: "#0a0a0a",    // Slightly lighter for cards
+        border: {
+          subtle: "#27272a",
+          DEFAULT: "#18181b",
         },
         accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
+          DEFAULT: "#6366f1", // Indigo
+          glow: "rgba(99, 102, 241, 0.5)",
         },
-        popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
+        // Keeping legacy colors for compatibility until refactor is complete
+        zinc: {
+            950: '#09090b',
+            900: '#18181b',
+            800: '#27272a',
         },
-        card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
-        },
-        sidebar: {
-          DEFAULT: "var(--sidebar-background)",
-          foreground: "var(--sidebar-foreground)",
-          primary: "var(--sidebar-primary)",
-          "primary-foreground": "var(--sidebar-primary-foreground)",
-          accent: "var(--sidebar-accent)",
-          "accent-foreground": "var(--sidebar-accent-foreground)",
-          border: "var(--sidebar-border)",
-          ring: "var(--sidebar-ring)",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
+        indigo: {
+            600: '#4f46e5',
+            500: '#6366f1',
+        }
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        'shimmer': 'shimmer 2s linear infinite',
       },
+      keyframes: {
+        shimmer: {
+          from: { backgroundPosition: '0 0' },
+          to: { backgroundPosition: '-200% 0' },
+        }
+      }
     },
   },
-  plugins: [
-    tailwindAnimate,
-    plugin(function ({ addUtilities }) {
-      addUtilities({
-        ".flex-center": {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-        ".flex-between": {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        },
-        ".flex-col-center": {
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-      });
-    }),
-  ],
-} satisfies Config;
-
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [require("tailwindcss-animate")],
+};
 export default config;

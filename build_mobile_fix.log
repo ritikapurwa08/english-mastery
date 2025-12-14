@@ -1,0 +1,310 @@
+$ next build --webpack
+   Γû▓ Next.js 16.0.10 (webpack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ Γ£ô (pwa) Compiling for server...
+ Γ£ô (pwa) Compiling for server...
+ Γ£ô (pwa) Compiling for client (static)...
+ Γùï (pwa) Service worker: E:\projects\english-mastery\public\sw.js
+ Γùï (pwa)   URL: /sw.js
+ Γùï (pwa)   Scope: /
+Failed to compile.
+
+./app/page.tsx
+Error:   x Unterminated template
+     ,-[E:\projects\english-mastery\app\page.tsx:1:1]
+   1 | ,-> ```js
+   2 | |   "use client";
+   3 | |   
+   4 | |   import { useState } from "react";
+   5 | |   import { useQuery } from "convex/react";
+   6 | |   import { api } from "@/convex/_generated/api";
+   7 | |   import { Sidebar } from "@/components/Sidebar";
+   8 | |   import { Badge } from "@/components/ui/badge";
+   9 | |   import { StatBlock } from "@/components/ui/StatBlock";
+  10 | |   import { IconButton } from "@/components/ui/IconButton";
+  11 | |   import { Search, Trophy, Flame, ArrowUpRight, ChevronRight, Menu } from "lucide-react";
+  12 | |   import Link from "next/link";
+  13 | |   import { useRouter } from "next/navigation";
+  14 | |   
+  15 | |   export default function Home() {
+  16 | |     const router = useRouter(); // Keeping router as it might be used later or standard hook usage
+  17 | |     const user = useQuery(api.users.viewer);
+  18 | |     const stats = useQuery(api.dashboard.getStats);
+  19 | |     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  20 | |   
+  21 | |     const marked = stats?.wordsMarked || 0;
+  22 | |     const mastered = stats?.wordsMastered || 0;
+  23 | |     const streak = stats?.streak || 0;
+  24 | |   
+  25 | |   
+  26 | |     return (
+  27 | |       <div className="min-h-screen flex flex-col md:flex-row bg-[#050505]">
+  28 | |         <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
+  29 | |   
+  30 | |         <main className="flex-1 relative overflow-y-auto h-screen custom-scrollbar">
+  31 | |           {/* Background Grid Pattern */}
+  32 | |           <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-20" />
+  33 | |   
+  34 | |           {/* Header */}
+  35 | |           <header className="sticky top-0 z-10 bg-[#050505]/80 backdrop-blur-md border-b border-zinc-900 px-6 md:px-8 py-5 flex justify-between items-center">
+  36 | |               <div className="flex items-center gap-4">
+  37 | |                   <button
+  38 | |                       onClick={() => setMobileMenuOpen(true)}
+  39 | |                       className="md:hidden p-2 -ml-2 text-zinc-400 hover:text-white"
+  40 | |                   >
+  41 | |                       <Menu className="w-6 h-6" />
+  42 | |                   </button>
+  43 | |                   <h1 className="text-xl md:text-2xl font-display font-medium text-white tracking-tight">
+  44 | |                       Dashboard <span className="text-zinc-600 hidden sm:inline">/ Overview</span>
+  45 | |                   </h1>
+  46 | |               </div>
+  47 | |   
+  48 | |             <div className="flex items-center space-x-4">
+  49 | |               <div className="hidden md:flex items-center px-3 py-1.5 bg-zinc-900/50 rounded border border-zinc-800">
+  50 | |                  <Flame className="w-4 h-4 text-orange-500 mr-2" />
+  51 | |                  <span className="text-xs font-mono text-zinc-300">STREAK: {streak}</span>
+  52 | |               </div>
+  53 | |               <IconButton icon={Search} />
+  54 | |               <IconButton icon={Trophy} active />
+  55 | |             </div>
+  56 | |           </header>
+  57 | |   
+  58 | |           {/* Content Area */}
+  59 | |           <div className="relative z-10 p-6 lg:p-10 max-w-7xl mx-auto space-y-10">
+  60 | |   
+  61 | |              {/* Section 1: Hero & Stats */}
+  62 | |              <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
+  63 | |                 {/* Hero Card */}
+  64 | |                 <div className="md:col-span-8 bento-card rounded-2xl p-8 flex flex-col justify-between min-h-[280px] group border-l-4 border-l-indigo-600">
+  65 | |                    <div className="space-y-4 max-w-lg">
+  66 | |                       <Badge className="text-indigo-400 border-indigo-500/20 bg-indigo-500/10">Daily Focus</Badge>
+  67 | |                       <h2 className="text-4xl md:text-5xl font-display font-medium text-white tracking-tight leading-[1.1]">
+  68 | |                          Master the art of <br />
+  69 | |                          <span className="text-indigo-500 text-glow">English.</span>
+  70 | |                       </h2>
+  71 | |                    </div>
+  72 | |                    <div className="pt-8">
+  73 | |                       <Link href="/study?mode=learning">
+  74 | |                           <button className="flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-lg font-bold hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+  75 | |                           <span>Start Session</span>
+  76 | |                           <ArrowUpRight className="w-4 h-4" />
+  77 | |                           </button>
+  78 | |                       </Link>
+  79 | |                    </div>
+  80 | |                 </div>
+  81 | |   
+  82 | |                 {/* Stats Column */}
+  83 | |                 <div className="md:col-span-4 grid grid-rows-2 gap-6">
+  84 | |                    <Link href="/stats" className="bento-card rounded-2xl cursor-pointer hover:bg-surface/80 transition-colors">
+  85 | |                       <StatBlock label="Words Mastered" value={mastered.toString()} trend="+2" trendUp />
+  86 | |                    </Link>
+  87 | |                    <Link href="/learn" className="bento-card rounded-2xl cursor-pointer hover:bg-surface/80 transition-colors">
+  88 | |                       <StatBlock label="Words Marked" value={marked.toString()} trend="Learning" trendUp />
+  89 | |                    </Link>
+  90 | |                 </div>
+  91 | |              </section>
+  92 | |   
+  93 | |              {/* Section 2: List Layout */}
+  94 | |              <section>
+  95 | |                 <div className="flex items-end justify-between mb-6 border-b border-zinc-900 pb-2">
+  96 | |                    <h3 className="text-xl font-display text-white">Active Modules</h3>
+  97 | |                    <Link href="/test">
+  98 | |                        <button className="text-xs font-mono text-zinc-500 hover:text-white uppercase tracking-wider flex items-center">
+  99 | |                           Take Test <ChevronRight className="w-3 h-3 ml-1" />
+ 100 | |                        </button>
+ 101 | |                    </Link>
+ 102 | |                 </div>
+ 103 | |                 <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-900 border border-zinc-900 rounded-2xl overflow-hidden">
+ 104 | |   
+ 105 | |                    <Link href="/learn?category=vocabulary" className="bg-[#0a0a0a] p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+ 106 | |                       <div className="flex justify-between items-start mb-6">
+ 107 | |                          <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_currentColor]" />
+ 108 | |                          <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+ 109 | |                       </div>
+ 110 | |                       <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Vocabulary</h4>
+ 111 | |                       <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">Core Lexicon</p>
+ 112 | |                    </Link>
+ 113 | |   
+ 114 | |                    <Link href="/test" className="bg-[#0a0a0a] p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+ 115 | |                       <div className="flex justify-between items-start mb-6">
+ 116 | |                          <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_currentColor]" />
+ 117 | |                          <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+ 118 | |                       </div>
+ 119 | |                       <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Quick Test</h4>
+ 120 | |                       <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">10 Questions</p>
+ 121 | |                    </Link>
+ 122 | |   
+ 123 | |                    <Link href="/study?mode=learning" className="bg-[#0a0a0a] p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+ 124 | |                       <div className="flex justify-between items-start mb-6">
+ 125 | |                          <div className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_10px_currentColor]" />
+ 126 | |                          <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+ 127 | |                       </div>
+ 128 | |                       <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Flashcards</h4>
+ 129 | |                       <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">Study Mode</p>
+ 130 | |                    </Link>
+ 131 | |   
+ 132 | |                 </div>
+ 133 | |              </section>
+ 134 | |   
+ 135 | |           </div>
+ 136 | |         </main>
+ 137 | |       </div>
+ 138 | |     );
+ 139 | `-> }
+     `----
+  x Expected ';', '}' or <eof>
+     ,-[E:\projects\english-mastery\app\page.tsx:1:1]
+   1 | ,-> ```js
+     : |   ^|
+     : |    `-- This is the expression part of an expression statement
+   2 | |   "use client";
+   3 | |   
+   4 | |   import { useState } from "react";
+   5 | |   import { useQuery } from "convex/react";
+   6 | |   import { api } from "@/convex/_generated/api";
+   7 | |   import { Sidebar } from "@/components/Sidebar";
+   8 | |   import { Badge } from "@/components/ui/badge";
+   9 | |   import { StatBlock } from "@/components/ui/StatBlock";
+  10 | |   import { IconButton } from "@/components/ui/IconButton";
+  11 | |   import { Search, Trophy, Flame, ArrowUpRight, ChevronRight, Menu } from "lucide-react";
+  12 | |   import Link from "next/link";
+  13 | |   import { useRouter } from "next/navigation";
+  14 | |   
+  15 | |   export default function Home() {
+  16 | |     const router = useRouter(); // Keeping router as it might be used later or standard hook usage
+  17 | |     const user = useQuery(api.users.viewer);
+  18 | |     const stats = useQuery(api.dashboard.getStats);
+  19 | |     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  20 | |   
+  21 | |     const marked = stats?.wordsMarked || 0;
+  22 | |     const mastered = stats?.wordsMastered || 0;
+  23 | |     const streak = stats?.streak || 0;
+  24 | |   
+  25 | |   
+  26 | |     return (
+  27 | |       <div className="min-h-screen flex flex-col md:flex-row bg-[#050505]">
+  28 | |         <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
+  29 | |   
+  30 | |         <main className="flex-1 relative overflow-y-auto h-screen custom-scrollbar">
+  31 | |           {/* Background Grid Pattern */}
+  32 | |           <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-20" />
+  33 | |   
+  34 | |           {/* Header */}
+  35 | |           <header className="sticky top-0 z-10 bg-[#050505]/80 backdrop-blur-md border-b border-zinc-900 px-6 md:px-8 py-5 flex justify-between items-center">
+  36 | |               <div className="flex items-center gap-4">
+  37 | |                   <button
+  38 | |                       onClick={() => setMobileMenuOpen(true)}
+  39 | |                       className="md:hidden p-2 -ml-2 text-zinc-400 hover:text-white"
+  40 | |                   >
+  41 | |                       <Menu className="w-6 h-6" />
+  42 | |                   </button>
+  43 | |                   <h1 className="text-xl md:text-2xl font-display font-medium text-white tracking-tight">
+  44 | |                       Dashboard <span className="text-zinc-600 hidden sm:inline">/ Overview</span>
+  45 | |                   </h1>
+  46 | |               </div>
+  47 | |   
+  48 | |             <div className="flex items-center space-x-4">
+  49 | |               <div className="hidden md:flex items-center px-3 py-1.5 bg-zinc-900/50 rounded border border-zinc-800">
+  50 | |                  <Flame className="w-4 h-4 text-orange-500 mr-2" />
+  51 | |                  <span className="text-xs font-mono text-zinc-300">STREAK: {streak}</span>
+  52 | |               </div>
+  53 | |               <IconButton icon={Search} />
+  54 | |               <IconButton icon={Trophy} active />
+  55 | |             </div>
+  56 | |           </header>
+  57 | |   
+  58 | |           {/* Content Area */}
+  59 | |           <div className="relative z-10 p-6 lg:p-10 max-w-7xl mx-auto space-y-10">
+  60 | |   
+  61 | |              {/* Section 1: Hero & Stats */}
+  62 | |              <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
+  63 | |                 {/* Hero Card */}
+  64 | |                 <div className="md:col-span-8 bento-card rounded-2xl p-8 flex flex-col justify-between min-h-[280px] group border-l-4 border-l-indigo-600">
+  65 | |                    <div className="space-y-4 max-w-lg">
+  66 | |                       <Badge className="text-indigo-400 border-indigo-500/20 bg-indigo-500/10">Daily Focus</Badge>
+  67 | |                       <h2 className="text-4xl md:text-5xl font-display font-medium text-white tracking-tight leading-[1.1]">
+  68 | |                          Master the art of <br />
+  69 | |                          <span className="text-indigo-500 text-glow">English.</span>
+  70 | |                       </h2>
+  71 | |                    </div>
+  72 | |                    <div className="pt-8">
+  73 | |                       <Link href="/study?mode=learning">
+  74 | |                           <button className="flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-lg font-bold hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+  75 | |                           <span>Start Session</span>
+  76 | |                           <ArrowUpRight className="w-4 h-4" />
+  77 | |                           </button>
+  78 | |                       </Link>
+  79 | |                    </div>
+  80 | |                 </div>
+  81 | |   
+  82 | |                 {/* Stats Column */}
+  83 | |                 <div className="md:col-span-4 grid grid-rows-2 gap-6">
+  84 | |                    <Link href="/stats" className="bento-card rounded-2xl cursor-pointer hover:bg-surface/80 transition-colors">
+  85 | |                       <StatBlock label="Words Mastered" value={mastered.toString()} trend="+2" trendUp />
+  86 | |                    </Link>
+  87 | |                    <Link href="/learn" className="bento-card rounded-2xl cursor-pointer hover:bg-surface/80 transition-colors">
+  88 | |                       <StatBlock label="Words Marked" value={marked.toString()} trend="Learning" trendUp />
+  89 | |                    </Link>
+  90 | |                 </div>
+  91 | |              </section>
+  92 | |   
+  93 | |              {/* Section 2: List Layout */}
+  94 | |              <section>
+  95 | |                 <div className="flex items-end justify-between mb-6 border-b border-zinc-900 pb-2">
+  96 | |                    <h3 className="text-xl font-display text-white">Active Modules</h3>
+  97 | |                    <Link href="/test">
+  98 | |                        <button className="text-xs font-mono text-zinc-500 hover:text-white uppercase tracking-wider flex items-center">
+  99 | |                           Take Test <ChevronRight className="w-3 h-3 ml-1" />
+ 100 | |                        </button>
+ 101 | |                    </Link>
+ 102 | |                 </div>
+ 103 | |                 <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-900 border border-zinc-900 rounded-2xl overflow-hidden">
+ 104 | |   
+ 105 | |                    <Link href="/learn?category=vocabulary" className="bg-[#0a0a0a] p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+ 106 | |                       <div className="flex justify-between items-start mb-6">
+ 107 | |                          <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_currentColor]" />
+ 108 | |                          <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+ 109 | |                       </div>
+ 110 | |                       <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Vocabulary</h4>
+ 111 | |                       <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">Core Lexicon</p>
+ 112 | |                    </Link>
+ 113 | |   
+ 114 | |                    <Link href="/test" className="bg-[#0a0a0a] p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+ 115 | |                       <div className="flex justify-between items-start mb-6">
+ 116 | |                          <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_currentColor]" />
+ 117 | |                          <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+ 118 | |                       </div>
+ 119 | |                       <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Quick Test</h4>
+ 120 | |                       <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">10 Questions</p>
+ 121 | |                    </Link>
+ 122 | |   
+ 123 | |                    <Link href="/study?mode=learning" className="bg-[#0a0a0a] p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+ 124 | |                       <div className="flex justify-between items-start mb-6">
+ 125 | |                          <div className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_10px_currentColor]" />
+ 126 | |                          <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+ 127 | |                       </div>
+ 128 | |                       <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Flashcards</h4>
+ 129 | |                       <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">Study Mode</p>
+ 130 | |                    </Link>
+ 131 | |   
+ 132 | |                 </div>
+ 133 | |              </section>
+ 134 | |   
+ 135 | |           </div>
+ 136 | |         </main>
+ 137 | |       </div>
+ 138 | |     );
+ 139 | `-> }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+
+
+> Build failed because of webpack errors
+error: script "build" exited with code 1

@@ -1,127 +1,138 @@
 "use client";
 
+import { useState } from "react";
 import { useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
-import { BottomNav } from "@/components/BottomNav";
-import { Progress } from "@/components/ui/progress";
-import { Flame, CheckCircle, Flag, Repeat, SpellCheck, MessageCircle } from "lucide-react";
+import { api } from "@/convex/_generated/api";
+import { Sidebar } from "@/components/Sidebar";
+import { Badge } from "@/components/ui/badge";
+import { StatBlock } from "@/components/ui/StatBlock";
+import { IconButton } from "@/components/ui/IconButton";
+import { Search, Trophy, Flame, ArrowUpRight, ChevronRight, Menu } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { fadeIn, staggerContainer } from "@/lib/animations";
-import { ModeToggle } from "@/components/theme-toggle-button";
-import { VercelHero } from "@/components/ui/vercel-hero";
+
 
 export default function Home() {
-  const stats = useQuery(api.dashboard.getStats);
-  const user = useQuery(api.users.viewer);
 
-  // Loading state (skeleton could be better)
-  if (stats === undefined || user === undefined) {
-    return <div className="min-h-screen bg-slate-50 dark:bg-[#101622] flex items-center justify-center text-slate-500">Loading...</div>;
-  }
+
+  const stats = useQuery(api.dashboard.getStats);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const marked = stats?.wordsMarked || 0;
+  const mastered = stats?.wordsMastered || 0;
+  const streak = stats?.streak || 0;
+
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#101622] font-sans pb-24 selection:bg-blue-600 selection:text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-40 w-full px-4 py-3 bg-white/80 dark:bg-[#101622]/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between">
-        <div className="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1.5">
-          <Flame className="text-orange-500 fill-orange-500" size={20} />
-          <span className="text-orange-500 text-sm font-bold">{stats?.streak || 0} Days</span>
-        </div>
+    <div className="min-h-screen flex flex-col md:flex-row bg-background">
+      <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
 
-        <Link href="/profile" className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden ring-2 ring-transparent hover:ring-blue-600 transition-all">
-          {user?.image ? (
-              <ModeToggle />
-          ) : (
-             <span className="text-slate-500 font-bold">U</span>
-          )}
-        </Link>
-      </header>
+      <main className="flex-1 relative overflow-y-auto h-screen custom-scrollbar">
+        {/* Background Grid Pattern */}
+        <div className="absolute inset-0 bg-grid-pattern pointer-events-none z-0 opacity-20" />
 
-      <VercelHero />
-
-      <main className="flex flex-col gap-6 p-4 max-w-md mx-auto">
-        {/* Stats Row */}
-        <motion.section
-            variants={staggerContainer}
-            initial="initial"
-            animate="animate"
-            className="grid grid-cols-2 gap-4"
-        >
-            <motion.div variants={fadeIn} className="flex flex-col justify-between rounded-2xl bg-white dark:bg-[#1e2229] p-4 border border-slate-200 dark:border-slate-800 shadow-sm h-32">
-                <div className="flex items-start justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Words Today</span>
-                    <CheckCircle className="text-green-500" size={20} />
-                </div>
-                <div>
-                    <div className="text-3xl font-bold text-slate-900 dark:text-white">{stats?.wordsToday || 0}</div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">+0 from yesterday</div>
-                </div>
-            </motion.div>
-
-            <motion.div variants={fadeIn} className="flex flex-col justify-between rounded-2xl bg-white dark:bg-[#1e2229] p-4 border border-slate-200 dark:border-slate-800 shadow-sm h-32">
-                <div className="flex items-start justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Weekly Goal</span>
-                    <Flag className="text-blue-600" size={20} />
-                </div>
-                <div className="w-full">
-                    <div className="flex items-end justify-between mb-2">
-                        <span className="text-xl font-bold text-slate-900 dark:text-white">0%</span>
-                    </div>
-                    <Progress value={0} className="h-2" />
-                </div>
-            </motion.div>
-        </motion.section>
-
-        {/* Categories */}
-        <section>
-            <h3 className="mb-4 px-1 text-lg font-bold text-slate-900 dark:text-white">Categories</h3>
-            <div className="grid grid-cols-2 gap-3">
-                {/* Synonyms */}
-                <Link href="/learn?category=synonyms" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
-                   <div className="absolute inset-0 bg-blue-600/40 mix-blend-multiply group-hover:bg-blue-600/50 transition-colors"></div>
-                   <Repeat className="absolute top-4 left-4 text-white/50" size={32} />
-                   <div className="relative z-10">
-                        <p className="text-base font-bold text-white">Synonyms</p>
-                        <p className="text-xs text-slate-300">Start Lesson</p>
-                   </div>
-                </Link>
-
-                {/* Antonyms */}
-                <Link href="/learn?category=antonyms" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
-                   <div className="absolute inset-0 bg-purple-600/40 mix-blend-multiply group-hover:bg-purple-600/50 transition-colors"></div>
-                   <div className="absolute top-4 left-4 text-white/50 text-2xl">↔️</div>
-                   <div className="relative z-10">
-                        <p className="text-base font-bold text-white">Antonyms</p>
-                        <p className="text-xs text-slate-300">Start Lesson</p>
-                   </div>
-                </Link>
-
-                 {/* Grammar */}
-                 <Link href="/learn?category=grammar" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
-                   <div className="absolute inset-0 bg-teal-600/40 mix-blend-multiply group-hover:bg-teal-600/50 transition-colors"></div>
-                   <SpellCheck className="absolute top-4 left-4 text-white/50" size={32} />
-                   <div className="relative z-10">
-                        <p className="text-base font-bold text-white">Grammar</p>
-                        <p className="text-xs text-slate-300">Start Lesson</p>
-                   </div>
-                </Link>
-
-                 {/* Idioms */}
-                 <Link href="/learn?category=idioms" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
-                   <div className="absolute inset-0 bg-orange-600/40 mix-blend-multiply group-hover:bg-orange-600/50 transition-colors"></div>
-                   <MessageCircle className="absolute top-4 left-4 text-white/50" size={32} />
-                   <div className="relative z-10">
-                        <p className="text-base font-bold text-white">Idioms</p>
-                        <p className="text-xs text-slate-300">Start Lesson</p>
-                   </div>
-                </Link>
+        {/* Header */}
+        <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-zinc-900 px-6 md:px-8 py-5 flex justify-between items-center">
+            <div className="flex items-center gap-4">
+                <button
+                    onClick={() => setMobileMenuOpen(true)}
+                    className="md:hidden p-2 -ml-2 text-zinc-400 hover:text-white"
+                >
+                    <Menu className="w-6 h-6" />
+                </button>
+                <h1 className="text-xl md:text-2xl font-display font-medium text-white tracking-tight">
+                    Dashboard <span className="text-zinc-600 hidden sm:inline">/ Overview</span>
+                </h1>
             </div>
-        </section>
 
+          <div className="flex items-center space-x-4">
+            <div className="hidden md:flex items-center px-3 py-1.5 bg-zinc-900/50 rounded border border-zinc-800">
+               <Flame className="w-4 h-4 text-orange-500 mr-2" />
+               <span className="text-xs font-mono text-zinc-300">STREAK: {streak}</span>
+            </div>
+            <IconButton icon={Search} />
+            <IconButton icon={Trophy} active />
+          </div>
+        </header>
+
+        {/* Content Area */}
+        <div className="relative z-10 p-6 lg:p-10 max-w-7xl mx-auto space-y-10">
+
+           {/* Section 1: Hero & Stats */}
+           <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
+              {/* Hero Card */}
+              <div className="md:col-span-8 bento-card rounded-2xl p-8 flex flex-col justify-between min-h-70 group border-l-4 border-l-indigo-600">
+                 <div className="space-y-4 max-w-lg">
+                    <Badge className="text-indigo-400 border-indigo-500/20 bg-indigo-500/10">Daily Focus</Badge>
+                    <h2 className="text-4xl md:text-5xl font-display font-medium text-white tracking-tight leading-[1.1]">
+                       Master the art of <br />
+                       <span className="text-indigo-500 text-glow">English.</span>
+                    </h2>
+                 </div>
+                 <div className="pt-8">
+                    <Link href="/study?mode=learning">
+                        <button className="flex items-center space-x-2 bg-white text-black px-6 py-3 rounded-lg font-bold hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                        <span>Start Session</span>
+                        <ArrowUpRight className="w-4 h-4" />
+                        </button>
+                    </Link>
+                 </div>
+              </div>
+
+              {/* Stats Column */}
+              <div className="md:col-span-4 grid grid-rows-2 gap-6">
+                 <Link href="/stats" className="bento-card rounded-2xl cursor-pointer hover:bg-surface/80 transition-colors">
+                    <StatBlock label="Words Mastered" value={mastered.toString()} trend="+2" trendUp />
+                 </Link>
+                 <Link href="/learn" className="bento-card rounded-2xl cursor-pointer hover:bg-surface/80 transition-colors">
+                    <StatBlock label="Words Marked" value={marked.toString()} trend="Learning" trendUp />
+                 </Link>
+              </div>
+           </section>
+
+           {/* Section 2: List Layout */}
+           <section>
+              <div className="flex items-end justify-between mb-6 border-b border-zinc-900 pb-2">
+                 <h3 className="text-xl font-display text-white">Active Modules</h3>
+                 <Link href="/test">
+                     <button className="text-xs font-mono text-zinc-500 hover:text-white uppercase tracking-wider flex items-center">
+                        Take Test <ChevronRight className="w-3 h-3 ml-1" />
+                     </button>
+                 </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-900 border border-zinc-900 rounded-2xl overflow-hidden">
+
+                 <Link href="/learn?category=vocabulary" className="bg-surface p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+                    <div className="flex justify-between items-start mb-6">
+                       <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_currentColor]" />
+                       <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+                    </div>
+                    <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Vocabulary</h4>
+                    <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">Core Lexicon</p>
+                 </Link>
+
+                 <Link href="/test" className="bg-surface p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+                    <div className="flex justify-between items-start mb-6">
+                       <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_currentColor]" />
+                       <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+                    </div>
+                    <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Quick Test</h4>
+                    <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">10 Questions</p>
+                 </Link>
+
+                 <Link href="/study?mode=learning" className="bg-surface p-6 hover:bg-zinc-900/50 transition-colors cursor-pointer group">
+                    <div className="flex justify-between items-start mb-6">
+                       <div className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_10px_currentColor]" />
+                       <ArrowUpRight className="w-5 h-5 text-zinc-600 group-hover:text-white transition-colors" />
+                    </div>
+                    <h4 className="text-xl font-display text-white mb-2 group-hover:text-glow transition-all">Flashcards</h4>
+                    <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">Study Mode</p>
+                 </Link>
+
+              </div>
+           </section>
+
+        </div>
       </main>
-
-      <BottomNav />
     </div>
   );
 }

@@ -1,37 +1,34 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "./convex-client-provider";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
+  variable: "--font-space",
+  weight: ["300", "400", "500", "600", "700"]
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const notoSans = Noto_Sans_Devanagari({
+  subsets: ["devanagari"],
+  variable: "--font-noto-sans",
+  weight: ["400", "500", "600"]
 });
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#050505",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false, // Often desired for app-like feel
+  userScalable: false,
 };
 
 export const metadata: Metadata = {
   title: "English Mastery",
   description: "Master English with AI-Powered Precision",
   manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "English Mastery",
-  },
 };
 
 export default function RootLayout({
@@ -40,22 +37,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased  `}
-      >
+    <html lang="en" className="dark">
+      <body className={`${inter.variable} ${spaceGrotesk.variable} ${notoSans.variable} font-sans bg-[#050505] text-[#e4e4e7] antialiased`}>
       <ConvexClientProvider>
           <AuthWrapper>
             <ThemeProvider
               attribute="class"
               defaultTheme="dark"
-              enableSystem
+              enableSystem={false}
               disableTransitionOnChange
             >
-
-
             {children}
-    </ThemeProvider>
+            </ThemeProvider>
             </AuthWrapper>
       </ConvexClientProvider>
       </body>
