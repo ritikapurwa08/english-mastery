@@ -163,8 +163,8 @@ export default function TestPage() {
                                 className={cn(
                                     "py-2.5 rounded-lg text-sm font-bold border transition-all",
                                     questionCount === count
-                                        ? "bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-600/20"
-                                        : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800 hover:text-white"
+                                        ? " text-white border-indigo-600 shadow-lg shadow-indigo-600/20"
+                                        : " text-zinc-400 border-zinc-800 hover:bg-zinc-800 hover:text-white"
                                 )}
                             >
                                 {count}
@@ -177,10 +177,10 @@ export default function TestPage() {
           </div>
 
           {/* Sticky Start Button area */}
-          <div className="sticky bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black via-black to-transparent z-10 w-full max-w-md mx-auto">
+          <div className="sticky bottom-0 left-0 right-0 p-6  z-10 w-full max-w-md mx-auto">
              <Button
-                variant="accent"
-                className="w-full h-14 text-base font-bold shadow-xl shadow-indigo-500/20"
+                variant="outline"
+                className="w-full h-14 text-base bg-surface font-bold shadow-xl shadow-indigo-500/20"
                 disabled={selectedCategories.length === 0 || isGenerating}
                 onClick={handleStartTest}
                 isLoading={isGenerating}

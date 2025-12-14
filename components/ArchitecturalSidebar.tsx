@@ -17,7 +17,7 @@ export function ArchitecturalSidebar() {
   ];
 
   return (
-    <aside className="w-full md:w-20 lg:w-64 border-r border-zinc-900 bg-surface flex flex-col z-50 sticky top-0 h-screen">
+    <aside className="w-full md:w-20 lg:w-64 border-r border-zinc-900 bg-surface flex flex-col z-50 sticky top-0 min-h-dvh">
       {/* Logo Area */}
       <div className="h-20 flex items-center px-6 border-b border-zinc-900 justify-start md:justify-center lg:justify-start">
          <div className="w-8 h-8 shrink-0 bg-white rounded flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)]">

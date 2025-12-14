@@ -107,31 +107,44 @@ export default function WordDetailPage() {
                 <BookOpen className="text-indigo-500" size={18} />
                 <h2 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Definition</h2>
             </div>
-            <p className="text-xl text-zinc-200 font-medium leading-relaxed">
+            <p className="md:text-xl text-base  text-zinc-200 font-medium leading-relaxed">
                 {word.definition}
             </p>
          </motion.div>
 
          {/* Hindi Meanings */}
          {word.hindiSynonyms && word.hindiSynonyms.length > 0 && (
-             <motion.div variants={fadeIn} initial="initial" animate="animate" transition={{ delay: 0.15 }} className="w-full bg-orange-950/20 rounded-2xl p-6 shadow-sm border border-orange-900/30 mb-4">
+             <motion.div variants={fadeIn} initial="initial" animate="animate" transition={{ delay: 0.15 }} className="w-full bg-zinc-900/60 rounded-2xl p-8 shadow-sm border border-zinc-800 mb-4 backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-3">
                     <span className="text-lg grayscale opacity-70">🇮🇳</span>
                     <h2 className="text-xs font-bold text-orange-400 uppercase tracking-wider">Hindi Meaning</h2>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flew-row overflow-x-auto no-scrollbar  gap-2">
                     {word.hindiSynonyms.map((mean, i) => (
-                        <div key={i} className="px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-300 text-lg font-bold">
+                        <div key={i} className="px-3 py-1.5 rounded-lg  bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-medium min-w-fit   md:text-lg ">
                             {mean}
                         </div>
                     ))}
                 </div>
+                         {/* Synonyms / Related */}
+                 {word.englishSynonyms && word.englishSynonyms.length > 0 && (
+            <div className="w-full mb-4 space-y-3 pt-4 border-t border-zinc-900">
+                <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wide px-1">Synonyms</h3>
+                <div className="flex flex-row w-full  overflow-x-auto no-scrollbar gap-2">
+                    {word.englishSynonyms.map((syn, i) => (
+                        <div key={i} className="px-3 py-1.5 min-w-fit  rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-medium w-auto ">
+                            {syn}
+                        </div>
+                    ))}
+                </div>
+            </div>
+         )}
              </motion.div>
          )}
 
          {/* Example Sentence */}
          {word.examples && word.examples.length > 0 && (
-             <motion.div variants={fadeIn} initial="initial" animate="animate" transition={{ delay: 0.2 }} className="w-full relative rounded-2xl bg-indigo-900/10 border border-indigo-500/20 p-6 mb-4">
+             <motion.div variants={fadeIn} initial="initial" animate="animate" transition={{ delay: 0.2 }} className="w-full bg-zinc-900/60 rounded-2xl p-8 shadow-sm border border-zinc-800 mb-4 backdrop-blur-sm">
                  <div className="flex items-center gap-2 mb-4">
                     <span className="text-indigo-500 text-lg font-bold leading-none">&quot;</span>
                     <h2 className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Context</h2>
@@ -139,7 +152,7 @@ export default function WordDetailPage() {
                  <div className="space-y-4">
                     {word.examples.map((ex, i) => (
                         <div key={i}>
-                            <p className="text-lg text-white leading-normal italic font-medium">
+                            <p className="text-base  text-white leading-normal  font-bold">
                                 {ex.sentence}
                             </p>
                             {ex.translation && (
@@ -153,19 +166,8 @@ export default function WordDetailPage() {
              </motion.div>
          )}
 
-         {/* Synonyms / Related */}
-         {word.englishSynonyms && word.englishSynonyms.length > 0 && (
-            <div className="w-full mb-4 space-y-3 pt-4 border-t border-zinc-900">
-                <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wide px-1">Synonyms</h3>
-                <div className="flex flex-wrap gap-2">
-                    {word.englishSynonyms.map((syn, i) => (
-                        <div key={i} className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-medium">
-                            {syn}
-                        </div>
-                    ))}
-                </div>
-            </div>
-         )}
+
+
 
          {/* Antonyms */}
          {word.antonyms && word.antonyms.length > 0 && (

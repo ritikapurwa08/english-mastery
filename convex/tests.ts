@@ -38,11 +38,11 @@ export const generateTest = mutation({
         [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
     }
 
-  
+
 
     return {
-        testId: "temp_id_" + Date.now(), // In real app, we might save a 'test_session' to DB
-        allQuestions
+        testId: "temp_id_" + Date.now(),
+        questions: allQuestions.slice(0, args.questionCount)
     };
   },
 });

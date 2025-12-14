@@ -20,16 +20,15 @@ export default function StatsPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const firstName = user?.name?.split(' ')[0] || 'User';
 
-  if (stats === undefined) return <div className="h-screen bg-black flex items-center justify-center text-zinc-500">Loading Stats...</div>;
-  if (stats === null) return <div className="h-screen bg-black flex items-center justify-center text-zinc-500">Please Log In</div>;
+  const isLoading = stats === undefined;
 
   return (
-    <div className="flex min-h-screen bg-black text-zinc-100 font-sans selection:bg-indigo-500/30">
+    <div className="flex min-h-screen bg-background text-zinc-100 font-sans selection:bg-indigo-500/30">
         <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
 
-        <main className="flex-1 flex flex-col min-w-0 pb-24 md:pb-0">
+        <main className="flex-1 flex flex-col min-w-0 pb-24 md:pb-0 h-screen overflow-hidden">
              {/* Header */}
-            <header className="h-16 border-b border-zinc-800 bg-black/50 backdrop-blur-md sticky top-0 z-20 px-6 flex items-center justify-between">
+            <header className="shrink-0 h-16 border-b border-zinc-800 bg-black/50 backdrop-blur-md z-20 px-6 flex items-center justify-between">
                 <div className="flex items-center lg:hidden">
                     <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)}>
                         <Menu className="w-5 h-5" />
@@ -44,113 +43,134 @@ export default function StatsPage() {
                 </div>
             </header>
 
-            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 w-full max-w-md mx-auto no-scrollbar">
+            <div className="flex-1 overflow-y-auto custom-scrollbar px-6 py-6 space-y-6 w-full max-w-md mx-auto">
 
-                {/* Main Hero Stats */}
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-800 shadow-sm flex flex-col justify-between h-32">
-                        <div className="flex items-start justify-between">
-                            <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500">
-                                <Zap size={20} fill="currentColor" />
-                            </div>
+                {/* Main Hero Stats (Compact) */}
+                <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-surface p-4 rounded-xl border border-zinc-800 shadow-sm flex items-center gap-3 active:scale-[0.98] transition-transform">
+                        <div className="p-2.5 bg-orange-500/10 rounded-lg text-orange-500 shrink-0">
+                            <Zap size={18} fill="currentColor" />
                         </div>
                         <div>
-                            <h3 className="text-3xl font-bold text-white">{stats.streak}</h3>
-                            <p className="text-xs font-medium text-zinc-500 uppercase tracking-widest mt-1">Day Streak</p>
+                            {isLoading ? (
+                                <div className="h-6 w-12 bg-zinc-800 rounded animate-pulse mb-1"></div>
+                            ) : (
+                                <h3 className="text-xl font-bold text-white leading-none">{stats?.streak ?? 0}</h3>
+                            )}
+                            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Streak</p>
                         </div>
                     </div>
 
-                    <div className="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-800 shadow-sm flex flex-col justify-between h-32">
-                        <div className="flex items-start justify-between">
-                            <div className="p-2 bg-blue-500/10 rounded-lg text-blue-500">
-                                <Target size={20} />
-                            </div>
+                    <div className="bg-surface p-4 rounded-xl border border-zinc-800 shadow-sm flex items-center gap-3 active:scale-[0.98] transition-transform">
+                        <div className="p-2.5 bg-blue-500/10 rounded-lg text-blue-500 shrink-0">
+                            <Target size={18} />
                         </div>
                         <div>
-                            <h3 className="text-3xl font-bold text-white">{stats.avgScore}%</h3>
-                            <p className="text-xs font-medium text-zinc-500 uppercase tracking-widest mt-1">Avg Score</p>
+                           {isLoading ? (
+                                <div className="h-6 w-12 bg-zinc-800 rounded animate-pulse mb-1"></div>
+                            ) : (
+                                <h3 className="text-xl font-bold text-white leading-none">{stats?.avgScore ?? 0}%</h3>
+                            )}
+                            <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Avg Score</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Detailed Stats Card */}
-                <div className="bg-zinc-900/40 rounded-2xl p-6 border border-zinc-800 shadow-sm">
-                    <h3 className="font-bold text-white mb-6 flex items-center gap-2">
-                        <BarChart3 className="text-indigo-500" size={20} />
-                        Learning Analytics
-                    </h3>
-
-                    <div className="space-y-6">
-                        <div>
-                            <div className="flex justify-between text-sm mb-2">
-                                <span className="text-zinc-400">Total Tests Taken</span>
-                                <span className="font-bold text-white">{stats.totalTests}</span>
-                            </div>
-                            <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
-                                <motion.div
-                                    className="h-full bg-purple-500"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ duration: 1 }}
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="flex justify-between text-sm mb-2">
-                                <span className="text-zinc-400">Global Accuracy</span>
-                                <span className="font-bold text-white">{stats.accuracy}%</span>
-                            </div>
-                            <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
-                                <motion.div
-                                    className="h-full bg-emerald-500"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${stats.accuracy}%` }}
-                                    transition={{ duration: 1, delay: 0.2 }}
-                                />
-                            </div>
+                {isLoading ? (
+                    <div className="bg-surface rounded-2xl p-6 border border-zinc-800 space-y-6 animate-pulse">
+                        <div className="h-6 w-32 bg-zinc-800 rounded"></div>
+                        <div className="space-y-4">
+                            <div className="h-10 bg-zinc-800 rounded"></div>
+                            <div className="h-10 bg-zinc-800 rounded"></div>
                         </div>
                     </div>
-                </div>
-
-                {/* Category Performance */}
-                <div className="bg-zinc-900/40 rounded-2xl p-6 border border-zinc-800 shadow-sm">
-                    <div className="flex items-center justify-between mb-6">
-                        <h3 className="font-bold text-white flex items-center gap-2">
-                            <TrendingUp className="text-green-500" size={20} />
-                            Skill Breakdown
+                ) : (
+                    <div className="bg-surface rounded-2xl p-6 border border-zinc-800 shadow-sm">
+                        <h3 className="font-bold text-white mb-6 flex items-center gap-2">
+                            <BarChart3 className="text-indigo-500" size={20} />
+                            Learning Analytics
                         </h3>
-                    </div>
 
-                    <div className="space-y-4">
-                        {stats.performance.map((item: any, idx: number) => (
-                            <div key={item.category} className="flex items-center gap-4">
-                                <div className={cn("w-2 h-8 rounded-full", item.color)}></div>
-                                <div className="flex-1">
-                                    <div className="flex justify-between items-center mb-1">
-                                        <span className="font-medium text-zinc-300 text-sm">{item.category}</span>
-                                        <span className="font-bold text-white text-sm">{item.percentage}%</span>
-                                    </div>
-                                    <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
-                                        <motion.div
-                                            className={cn("h-full", item.color)}
-                                            initial={{ width: 0 }}
-                                            animate={{ width: `${item.percentage}%` }}
-                                            transition={{ duration: 0.8, delay: idx * 0.1 }}
-                                        />
-                                    </div>
+                        <div className="space-y-6">
+                            <div>
+                                <div className="flex justify-between text-sm mb-2">
+                                    <span className="text-zinc-400">Total Tests Taken</span>
+                                    <span className="font-bold text-white">{stats?.totalTests ?? 0}</span>
+                                </div>
+                                <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                    <motion.div
+                                        className="h-full bg-purple-500"
+                                        initial={{ width: 0 }}
+                                        animate={{ width: "100%" }}
+                                        transition={{ duration: 1 }}
+                                    />
                                 </div>
                             </div>
-                        ))}
+
+                            <div>
+                                <div className="flex justify-between text-sm mb-2">
+                                    <span className="text-zinc-400">Global Accuracy</span>
+                                    <span className="font-bold text-white">{stats?.accuracy ?? 0}%</span>
+                                </div>
+                                <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                    <motion.div
+                                        className="h-full bg-emerald-500"
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${stats?.accuracy ?? 0}%` }}
+                                        transition={{ duration: 1, delay: 0.2 }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                )}
+
+                {/* Category Performance */}
+                {isLoading ? (
+                    <div className="bg-surface rounded-2xl p-6 border border-zinc-800 h-40 animate-pulse"></div>
+                ) : (
+                    <div className="bg-surface rounded-2xl p-6 border border-zinc-800 shadow-sm">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="font-bold text-white flex items-center gap-2">
+                                <TrendingUp className="text-green-500" size={20} />
+                                Skill Breakdown
+                            </h3>
+                        </div>
+
+                        <div className="space-y-4">
+                            {stats?.performance.map((item: any, idx: number) => (
+                                <div key={item.category} className="flex items-center gap-4">
+                                    <div className={cn("w-2 h-8 rounded-full", item.color)}></div>
+                                    <div className="flex-1">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="font-medium text-zinc-300 text-sm">{item.category}</span>
+                                            <span className="font-bold text-white text-sm">{item.percentage}%</span>
+                                        </div>
+                                        <div className="h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                                            <motion.div
+                                                className={cn("h-full", item.color)}
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${item.percentage}%` }}
+                                                transition={{ duration: 0.8, delay: idx * 0.1 }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {stats?.performance.length === 0 && (
+                                <p className="text-zinc-500 text-sm italic text-center py-4">No test data available yet.</p>
+                            )}
+                        </div>
+                    </div>
+                )}
 
                 {/* Quick Action */}
                 <div className="pt-2">
                     <Button
                         onClick={() => router.push("/test")}
-                        variant="accent"
-                        className="w-full h-14 text-lg font-bold shadow-lg shadow-indigo-500/20"
+                        variant="outline"
+                        className="w-full h-14 bg-surface text-base md:text-lg font-bold shadow-lg shadow-indigo-500/20"
                     >
                         <BookOpen className="mr-2" size={20} />
                         Start New Test
