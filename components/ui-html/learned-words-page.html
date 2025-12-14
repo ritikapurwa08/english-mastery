@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Learned Words</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-dark": "#0e4ac5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1c2536",
+                        "input-light": "#f1f5f9",
+                        "input-dark": "#192233",
+                        "border-light": "#e2e8f0",
+                        "border-dark": "#324467",
+                        "text-primary-light": "#0f172a",
+                        "text-primary-dark": "#ffffff",
+                        "text-secondary-light": "#64748b",
+                        "text-secondary-dark": "#92a4c9",
+                        "success": "#10b981",
+                        "warning": "#f59e0b",
+                        "difficulty-easy": "#10b981",
+                        "difficulty-med": "#f59e0b",
+                        "difficulty-hard": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #324467; 
+            border-radius: 3px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased selection:bg-primary selection:text-white min-h-screen pb-20">
+<header class="sticky top-0 z-30 bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-md border-b border-border-light dark:border-border-dark px-4 py-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 text-text-primary-light dark:text-text-primary-dark transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-text-primary-light dark:text-text-primary-dark tracking-tight">Learned Words</h1>
+</div>
+<div class="flex items-center gap-2">
+<div class="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+<span class="text-xs font-semibold text-primary">342 Words</span>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-secondary-light dark:text-text-secondary-dark">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-xl border-none bg-input-light dark:bg-input-dark text-text-primary-light dark:text-text-primary-dark placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark focus:ring-2 focus:ring-primary sm:text-sm pl-10 pr-3 py-3 shadow-sm transition-all" placeholder="Search learned vocabulary..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+<button class="p-1 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+</div>
+<div class="flex gap-2 mt-4 overflow-x-auto pb-1 no-scrollbar -mx-4 px-4 mask-fade-sides">
+<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary text-white text-sm font-medium whitespace-nowrap shadow-sm ring-1 ring-primary">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                All
+            </button>
+<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark text-sm font-medium whitespace-nowrap transition-colors">
+                Category
+                <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark text-sm font-medium whitespace-nowrap transition-colors">
+                Date Learned
+                <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</button>
+<button class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark text-sm font-medium whitespace-nowrap transition-colors">
+                Difficulty
+            </button>
+</div>
+</header>
+<main class="p-4 space-y-4">
+<div class="flex items-center gap-3 py-2">
+<span class="text-xs font-bold uppercase tracking-wider text-text-secondary-light dark:text-text-secondary-dark">Today</span>
+<div class="h-px flex-1 bg-border-light dark:bg-border-dark"></div>
+</div>
+<div class="group relative bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-border-light dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 transition-all active:scale-[0.99]">
+<div class="flex justify-between items-start mb-1">
+<div class="flex flex-col">
+<h3 class="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">Serendipity</h3>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark italic">noun</span>
+</div>
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">volume_up</span>
+</button>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3 line-clamp-2">
+                The occurrence and development of events by chance in a happy or beneficial way.
+            </p>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-border-light dark:border-border-dark border-dashed">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-difficulty-hard/10 text-difficulty-hard border border-difficulty-hard/20">Hard</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 dark:bg-white/5 text-text-secondary-light dark:text-text-secondary-dark">Daily Life</span>
+</div>
+<span class="flex items-center gap-1 text-xs font-medium text-success">
+<span class="material-symbols-outlined text-[16px] fill-1">check_circle</span>
+                    Mastered
+                </span>
+</div>
+</div>
+<div class="group relative bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-border-light dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 transition-all active:scale-[0.99]">
+<div class="flex justify-between items-start mb-1">
+<div class="flex flex-col">
+<h3 class="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">Ephemeral</h3>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark italic">adjective</span>
+</div>
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">volume_up</span>
+</button>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3 line-clamp-2">
+                Lasting for a very short time.
+            </p>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-border-light dark:border-border-dark border-dashed">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-difficulty-med/10 text-difficulty-med border border-difficulty-med/20">Medium</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 dark:bg-white/5 text-text-secondary-light dark:text-text-secondary-dark">Art</span>
+</div>
+<span class="flex items-center gap-1 text-xs font-medium text-success">
+<span class="material-symbols-outlined text-[16px] fill-1">check_circle</span>
+                    Learned
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-3 py-2 mt-6">
+<span class="text-xs font-bold uppercase tracking-wider text-text-secondary-light dark:text-text-secondary-dark">Yesterday</span>
+<div class="h-px flex-1 bg-border-light dark:bg-border-dark"></div>
+</div>
+<div class="group relative bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-border-light dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 transition-all active:scale-[0.99]">
+<div class="flex justify-between items-start mb-1">
+<div class="flex flex-col">
+<h3 class="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">Mellifluous</h3>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark italic">adjective</span>
+</div>
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">volume_up</span>
+</button>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3 line-clamp-2">
+                (of a voice or words) sweet or musical; pleasant to hear.
+            </p>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-border-light dark:border-border-dark border-dashed">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-difficulty-easy/10 text-difficulty-easy border border-difficulty-easy/20">Easy</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 dark:bg-white/5 text-text-secondary-light dark:text-text-secondary-dark">Music</span>
+</div>
+<span class="flex items-center gap-1 text-xs font-medium text-success">
+<span class="material-symbols-outlined text-[16px] fill-1">check_circle</span>
+                    Learned
+                </span>
+</div>
+</div>
+<div class="group relative bg-white dark:bg-surface-dark rounded-xl p-4 shadow-sm border border-border-light dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 transition-all active:scale-[0.99]">
+<div class="flex justify-between items-start mb-1">
+<div class="flex flex-col">
+<h3 class="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">Labyrinthine</h3>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark italic">adjective</span>
+</div>
+<button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">volume_up</span>
+</button>
+</div>
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3 line-clamp-2">
+                Like a labyrinth; irregular and twisting.
+            </p>
+<div class="flex items-center justify-between mt-2 pt-3 border-t border-border-light dark:border-border-dark border-dashed">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-difficulty-hard/10 text-difficulty-hard border border-difficulty-hard/20">Hard</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-100 dark:bg-white/5 text-text-secondary-light dark:text-text-secondary-dark">Architecture</span>
+</div>
+<span class="flex items-center gap-1 text-xs font-medium text-success">
+<span class="material-symbols-outlined text-[16px] fill-1">check_circle</span>
+                    Mastered
+                </span>
+</div>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark px-6 py-3 pb-6 z-40">
+<div class="flex justify-between items-center max-w-md mx-auto">
+<button class="flex flex-col items-center gap-1 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl fill-1">school</span>
+<span class="text-[10px] font-medium">Learned</span>
+</button>
+<div class="relative -top-6">
+<button class="flex items-center justify-center w-12 h-12 bg-primary rounded-full shadow-lg shadow-primary/40 hover:bg-primary-dark transition-colors">
+<span class="material-symbols-outlined text-white text-2xl">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">favorite</span>
+<span class="text-[10px] font-medium">Favorites</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</div>
+</nav>
+
+</body></html>

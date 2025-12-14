@@ -1,65 +1,155 @@
-import Image from "next/image";
+"use client";
+
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+import { BottomNav } from "@/components/BottomNav";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Flame, CheckCircle, Flag, ArrowRight, Repeat, SpellCheck, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { fadeIn, staggerContainer } from "@/lib/animations";
+import { ModeToggle } from "@/components/theme-toggle-button";
 
 export default function Home() {
+  const stats = useQuery(api.dashboard.getStats);
+  const user = useQuery(api.users.viewer);
+
+  // Loading state (skeleton could be better)
+  if (stats === undefined || user === undefined) {
+    return <div className="min-h-screen bg-slate-50 dark:bg-[#101622] flex items-center justify-center text-slate-500">Loading...</div>;
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-slate-50 dark:bg-[#101622] font-sans pb-24 selection:bg-blue-600 selection:text-white">
+      {/* Header */}
+      <header className="sticky top-0 z-40 w-full px-4 py-3 bg-white/80 dark:bg-[#101622]/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between">
+        <div className="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1.5">
+          <Flame className="text-orange-500 fill-orange-500" size={20} />
+          <span className="text-orange-500 text-sm font-bold">{stats?.streak || 0} Days</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        <Link href="/profile" className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden ring-2 ring-transparent hover:ring-blue-600 transition-all">
+          {user?.image ? (
+
+              <ModeToggle />
+
+          ) : (
+             <span className="text-slate-500 font-bold">U</span>
+          )}
+        </Link>
+      </header>
+
+      <main className="flex flex-col gap-6 p-4 max-w-md mx-auto">
+        {/* Hero */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full"
+        >
+          <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-600/10 group h-105">
+             {/* BG Image placeholder (using abstract gradient for now if image fails) */}
+             <div className="absolute inset-0 bg-linear-to-br from-blue-600 to-purple-700"></div>
+             {/* Optional Image Overlay */}
+             <div className="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-overlay" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80')" }}></div>
+
+             <div className="absolute inset-0 flex flex-col justify-end p-6 bg-linear-to-b from-transparent via-transparent to-black/80">
+                <div className="mb-2 inline-flex self-start rounded-md bg-blue-600/20 backdrop-blur-md px-2 py-1 border border-blue-500/30">
+                  <span className="text-xs font-bold text-blue-200 uppercase tracking-wider">Daily Challenge</span>
+                </div>
+                <h1 className="text-3xl font-bold text-white leading-tight mb-2 drop-shadow-md">Ready to master English?</h1>
+                <p className="text-slate-200 text-base font-medium mb-6 max-w-[90%] drop-shadow-sm">Expand your world, one word at a time.</p>
+                <Link href="/learn">
+                    <Button className="w-full h-14 rounded-xl text-base font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/30">
+                        Start Learning <ArrowRight className="ml-2" size={20} />
+                    </Button>
+                </Link>
+             </div>
+          </div>
+        </motion.section>
+
+        {/* Stats Row */}
+        <motion.section
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+            className="grid grid-cols-2 gap-4"
+        >
+            <motion.div variants={fadeIn} className="flex flex-col justify-between rounded-2xl bg-white dark:bg-[#1e2229] p-4 border border-slate-200 dark:border-slate-800 shadow-sm h-32">
+                <div className="flex items-start justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Words Today</span>
+                    <CheckCircle className="text-green-500" size={20} />
+                </div>
+                <div>
+                    <div className="text-3xl font-bold text-slate-900 dark:text-white">{stats?.wordsToday || 0}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">+0 from yesterday</div>
+                </div>
+            </motion.div>
+
+            <motion.div variants={fadeIn} className="flex flex-col justify-between rounded-2xl bg-white dark:bg-[#1e2229] p-4 border border-slate-200 dark:border-slate-800 shadow-sm h-32">
+                <div className="flex items-start justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Weekly Goal</span>
+                    <Flag className="text-blue-600" size={20} />
+                </div>
+                <div className="w-full">
+                    <div className="flex items-end justify-between mb-2">
+                        <span className="text-xl font-bold text-slate-900 dark:text-white">0%</span>
+                    </div>
+                    <Progress value={0} className="h-2" />
+                </div>
+            </motion.div>
+        </motion.section>
+
+        {/* Categories */}
+        <section>
+            <h3 className="mb-4 px-1 text-lg font-bold text-slate-900 dark:text-white">Categories</h3>
+            <div className="grid grid-cols-2 gap-3">
+                {/* Synonyms */}
+                <Link href="/learn?category=synonyms" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
+                   <div className="absolute inset-0 bg-blue-600/40 mix-blend-multiply group-hover:bg-blue-600/50 transition-colors"></div>
+                   <Repeat className="absolute top-4 left-4 text-white/50" size={32} />
+                   <div className="relative z-10">
+                        <p className="text-base font-bold text-white">Synonyms</p>
+                        <p className="text-xs text-slate-300">Start Lesson</p>
+                   </div>
+                </Link>
+
+                {/* Antonyms */}
+                <Link href="/learn?category=antonyms" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
+                   <div className="absolute inset-0 bg-purple-600/40 mix-blend-multiply group-hover:bg-purple-600/50 transition-colors"></div>
+                   <div className="absolute top-4 left-4 text-white/50 text-2xl">↔️</div>
+                   <div className="relative z-10">
+                        <p className="text-base font-bold text-white">Antonyms</p>
+                        <p className="text-xs text-slate-300">Start Lesson</p>
+                   </div>
+                </Link>
+
+                 {/* Grammar */}
+                 <Link href="/learn?category=grammar" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
+                   <div className="absolute inset-0 bg-teal-600/40 mix-blend-multiply group-hover:bg-teal-600/50 transition-colors"></div>
+                   <SpellCheck className="absolute top-4 left-4 text-white/50" size={32} />
+                   <div className="relative z-10">
+                        <p className="text-base font-bold text-white">Grammar</p>
+                        <p className="text-xs text-slate-300">Start Lesson</p>
+                   </div>
+                </Link>
+
+                 {/* Idioms */}
+                 <Link href="/learn?category=idioms" className="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm active:scale-[0.98] transition-transform group">
+                   <div className="absolute inset-0 bg-orange-600/40 mix-blend-multiply group-hover:bg-orange-600/50 transition-colors"></div>
+                   <MessageCircle className="absolute top-4 left-4 text-white/50" size={32} />
+                   <div className="relative z-10">
+                        <p className="text-base font-bold text-white">Idioms</p>
+                        <p className="text-xs text-slate-300">Start Lesson</p>
+                   </div>
+                </Link>
+            </div>
+        </section>
+
       </main>
+
+      <BottomNav />
     </div>
   );
 }

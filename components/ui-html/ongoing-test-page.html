@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ongoing Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display flex items-center justify-center min-h-screen p-4 sm:p-0">
+<!-- Mobile Device Simulator / Main Container -->
+<div class="relative flex flex-col w-full max-w-md h-[850px] max-h-[90vh] sm:h-screen sm:max-h-none bg-white dark:bg-background-dark overflow-hidden rounded-2xl sm:rounded-none shadow-2xl sm:shadow-none ring-8 ring-slate-900 sm:ring-0">
+<!-- Top Bar -->
+<header class="shrink-0 flex items-center justify-between px-6 py-5 bg-white dark:bg-background-dark z-20">
+<!-- Pause Button -->
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-2xl">pause</span>
+</button>
+<!-- Timer -->
+<div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-[#1A2230]">
+<span class="material-symbols-outlined text-sm text-slate-500 dark:text-slate-400">timer</span>
+<span class="text-slate-900 dark:text-white text-lg font-bold tracking-tight tabular-nums">09:45</span>
+</div>
+<!-- End Test Link -->
+<button class="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 text-sm font-bold tracking-wide">
+                End Test
+            </button>
+</header>
+<!-- Progress Section -->
+<div class="shrink-0 px-6 pb-2 bg-white dark:bg-background-dark">
+<div class="flex items-end justify-between mb-3">
+<p class="text-slate-800 dark:text-slate-200 text-sm font-medium">Question 3 of 10</p>
+<div class="text-xs font-bold text-primary uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded">Vocabulary</div>
+</div>
+<!-- Progress Bar -->
+<div class="h-2 w-full bg-slate-100 dark:bg-[#232f48] rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: 30%;"></div>
+</div>
+</div>
+<!-- Scrollable Content Area -->
+<main class="flex-1 flex flex-col px-6 py-4 overflow-y-auto no-scrollbar">
+<!-- Question Card -->
+<div class="mt-4 mb-8 flex-1 flex flex-col justify-center min-h-[160px]">
+<div class="bg-slate-50 dark:bg-[#1A2230] p-6 rounded-2xl border border-slate-100 dark:border-transparent shadow-sm">
+<h1 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight text-center">
+                        Select the correct definition for:
+                    </h1>
+<div class="mt-4 text-center">
+<span class="inline-block text-3xl md:text-4xl font-bold text-primary dark:text-blue-400 tracking-tight drop-shadow-sm">
+                            Serendipity
+                        </span>
+</div>
+</div>
+</div>
+<!-- Answer Options Stack -->
+<div class="flex flex-col gap-3 pb-4">
+<!-- Option A -->
+<button class="group relative w-full flex items-center gap-4 p-4 min-h-[72px] rounded-xl text-left bg-white border-2 border-slate-200 hover:border-primary dark:bg-[#232f48] dark:border-transparent dark:hover:bg-[#2a3655] transition-all duration-200 active:scale-[0.99]">
+<div class="shrink-0 flex items-center justify-center size-8 rounded-lg bg-slate-100 text-slate-500 font-bold text-sm group-hover:bg-primary group-hover:text-white dark:bg-[#151b29] dark:text-slate-400 transition-colors">
+                        A
+                    </div>
+<span class="text-slate-700 dark:text-white text-base font-medium leading-normal">
+                        The occurrence of events by chance in a happy way.
+                    </span>
+</button>
+<!-- Option B -->
+<button class="group relative w-full flex items-center gap-4 p-4 min-h-[72px] rounded-xl text-left bg-white border-2 border-slate-200 hover:border-primary dark:bg-[#232f48] dark:border-transparent dark:hover:bg-[#2a3655] transition-all duration-200 active:scale-[0.99]">
+<div class="shrink-0 flex items-center justify-center size-8 rounded-lg bg-slate-100 text-slate-500 font-bold text-sm group-hover:bg-primary group-hover:text-white dark:bg-[#151b29] dark:text-slate-400 transition-colors">
+                        B
+                    </div>
+<span class="text-slate-700 dark:text-white text-base font-medium leading-normal">
+                        A feeling of deep sadness.
+                    </span>
+</button>
+<!-- Option C -->
+<button class="group relative w-full flex items-center gap-4 p-4 min-h-[72px] rounded-xl text-left bg-white border-2 border-slate-200 hover:border-primary dark:bg-[#232f48] dark:border-transparent dark:hover:bg-[#2a3655] transition-all duration-200 active:scale-[0.99]">
+<div class="shrink-0 flex items-center justify-center size-8 rounded-lg bg-slate-100 text-slate-500 font-bold text-sm group-hover:bg-primary group-hover:text-white dark:bg-[#151b29] dark:text-slate-400 transition-colors">
+                        C
+                    </div>
+<span class="text-slate-700 dark:text-white text-base font-medium leading-normal">
+                        The ability to predict the future.
+                    </span>
+</button>
+<!-- Option D -->
+<button class="group relative w-full flex items-center gap-4 p-4 min-h-[72px] rounded-xl text-left bg-white border-2 border-slate-200 hover:border-primary dark:bg-[#232f48] dark:border-transparent dark:hover:bg-[#2a3655] transition-all duration-200 active:scale-[0.99]">
+<div class="shrink-0 flex items-center justify-center size-8 rounded-lg bg-slate-100 text-slate-500 font-bold text-sm group-hover:bg-primary group-hover:text-white dark:bg-[#151b29] dark:text-slate-400 transition-colors">
+                        D
+                    </div>
+<span class="text-slate-700 dark:text-white text-base font-medium leading-normal">
+                        A strong desire to travel.
+                    </span>
+</button>
+</div>
+</main>
+<!-- Footer / Action Area -->
+<footer class="shrink-0 p-6 pt-2 bg-gradient-to-t from-white via-white to-transparent dark:from-background-dark dark:via-background-dark dark:to-transparent z-20">
+<button class="w-full flex items-center justify-center gap-2 h-14 bg-primary hover:bg-blue-600 text-white text-lg font-bold rounded-xl shadow-lg shadow-primary/25 active:shadow-none active:translate-y-0.5 transition-all">
+<span>Next Question</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</footer>
+</div>
+</body></html>

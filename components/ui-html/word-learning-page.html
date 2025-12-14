@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Word Learning Page</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Lexend -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#135bec",
+              "primary-dark": "#0e46b9",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+              "card-dark": "#1a2230",
+              "surface-dark": "#232d3f",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"],
+              "body": ["Noto Sans", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased h-screen w-full overflow-hidden flex flex-col selection:bg-primary selection:text-white">
+<!-- Header Section -->
+<header class="shrink-0 pt-4 pb-2 px-4 bg-background-light dark:bg-background-dark z-10">
+<div class="flex items-center justify-between mb-4">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">Word 5 of 20</span>
+<div class="flex gap-1 mt-1.5">
+<div class="h-1.5 w-8 rounded-full bg-primary"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+</div>
+</div>
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area (Scrollable) -->
+<main class="flex-1 overflow-y-auto no-scrollbar px-4 pb-32 flex flex-col items-center w-full max-w-lg mx-auto">
+<!-- Main Word Block -->
+<div class="flex flex-col items-center justify-center w-full py-6">
+<h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight text-center mb-2">
+                Serendipity
+            </h1>
+<div class="flex items-center gap-3 bg-white dark:bg-surface-dark px-4 py-2 rounded-full shadow-sm border border-slate-200 dark:border-white/5">
+<span class="text-primary font-medium font-body text-lg">/ˌser.ənˈdɪp.ə.ti/</span>
+<button class="flex items-center justify-center text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+</div>
+</div>
+<!-- Definition Card -->
+<div class="w-full bg-white dark:bg-card-dark rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 mb-4">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-sm">menu_book</span>
+<h2 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Webster Meaning</h2>
+</div>
+<p class="text-lg md:text-xl text-slate-800 dark:text-slate-200 font-medium leading-relaxed">
+                The occurrence and development of events by chance in a happy or beneficial way.
+            </p>
+</div>
+<!-- Related Terms Section (Horizontal Scroll) -->
+<div class="w-full mb-4 space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-sm font-semibold text-slate-500 dark:text-slate-400">Related Terms</h3>
+<span class="text-xs text-primary font-medium cursor-pointer">View All</span>
+</div>
+<div class="flex w-full overflow-x-auto gap-2 pb-2 no-scrollbar mask-gradient-right">
+<div class="shrink-0 px-4 py-2 rounded-lg bg-slate-100 dark:bg-surface-dark border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 text-sm font-medium">
+                    Chance
+                </div>
+<div class="shrink-0 px-4 py-2 rounded-lg bg-slate-100 dark:bg-surface-dark border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 text-sm font-medium">
+                    Fate
+                </div>
+<div class="shrink-0 px-4 py-2 rounded-lg bg-slate-100 dark:bg-surface-dark border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 text-sm font-medium">
+                    Luck
+                </div>
+<div class="shrink-0 px-4 py-2 rounded-lg bg-slate-100 dark:bg-surface-dark border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 text-sm font-medium">
+                    Fluke
+                </div>
+<div class="shrink-0 px-4 py-2 rounded-lg bg-slate-100 dark:bg-surface-dark border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 text-sm font-medium">
+                    Coincidence
+                </div>
+</div>
+</div>
+<div class="w-full space-y-3 mb-6">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-sm font-semibold text-slate-500 dark:text-slate-400">Antonyms</h3>
+</div>
+<div class="flex w-full overflow-x-auto gap-2 no-scrollbar">
+<div class="shrink-0 px-4 py-2 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 text-red-700 dark:text-red-300 text-sm font-medium">
+                    Misfortune
+                </div>
+<div class="shrink-0 px-4 py-2 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 text-red-700 dark:text-red-300 text-sm font-medium">
+                    Bad Luck
+                </div>
+</div>
+</div>
+<!-- Auto-Scroll Sentence Card -->
+<div class="w-full relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 p-6 mb-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">format_quote</span>
+<h2 class="text-xs font-bold text-primary uppercase tracking-wider">In Context</h2>
+</div>
+<div class="flex gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-primary/30"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-primary/30"></div>
+</div>
+</div>
+<div class="relative h-20">
+<p class="text-base text-slate-800 dark:text-slate-100 leading-normal font-body italic">
+                    "It was pure <strong class="text-primary not-italic">serendipity</strong> that we met at the coffee shop right before the rain started."
+                </p>
+<!-- Visual cue for next sentence -->
+<div class="absolute -bottom-6 left-0 w-full opacity-50 blur-[1px]">
+<p class="text-base text-slate-800 dark:text-slate-100 leading-normal font-body italic truncate">
+                        "Discovering the old map in the attic was a moment of serendipity."
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Interaction Dock -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark dark:to-transparent pt-12">
+<div class="max-w-lg mx-auto flex items-center justify-between gap-3">
+<!-- Previous Button -->
+<button class="shrink-0 size-12 flex items-center justify-center rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<!-- Main Actions Group -->
+<div class="flex flex-1 gap-3">
+<button class="flex-1 h-12 flex items-center justify-center gap-2 rounded-xl bg-white dark:bg-card-dark border border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 active:scale-95 transition-all shadow-sm font-semibold">
+<span class="material-symbols-outlined text-[20px]">close</span>
+<span class="hidden sm:inline">Don't Know</span>
+</button>
+<button class="flex-1 h-12 flex items-center justify-center gap-2 rounded-xl bg-primary hover:bg-primary-dark text-white active:scale-95 transition-all shadow-lg shadow-primary/25 font-semibold">
+<span class="material-symbols-outlined text-[20px]">check</span>
+<span class="hidden sm:inline">Known</span>
+</button>
+</div>
+<!-- Next Button -->
+<button class="shrink-0 size-12 flex items-center justify-center rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

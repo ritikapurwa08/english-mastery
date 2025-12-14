@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vocabulary Learning App</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#135bec",
+                "background-light": "#f6f6f8",
+                "background-dark": "#101622",
+                "card-dark": "#1e2229",
+                "card-light": "#ffffff",
+                },
+                fontFamily: {
+                "display": ["Lexend", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>
+        /* Custom utilities for glassmorphism */
+        .glass {
+            background: rgba(16, 22, 34, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .light .glass {
+            background: rgba(255, 255, 255, 0.85);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen pb-24 selection:bg-primary selection:text-white">
+<!-- Top Header -->
+<header class="sticky top-0 z-50 w-full px-4 py-3 glass border-b border-slate-200/50 dark:border-slate-800/50 flex items-center justify-between">
+<!-- Streak Counter -->
+<div class="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1.5">
+<span class="material-symbols-outlined text-orange-500 text-[20px] filled" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-orange-500 text-sm font-bold">12 Days</span>
+</div>
+<!-- User Profile -->
+<button class="flex items-center justify-center h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden ring-2 ring-transparent hover:ring-primary transition-all">
+<img alt="User Avatar" class="h-full w-full object-cover" data-alt="User profile picture showing a smiling person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh051N44bczo0nlt2GRQjtgaaVIeTm8vmOEo4NqxPLbJYoB9aIn98MpYdzdjG9K-TGgdWzW0zwp3oBQWau8j8kH_xufWA4uya1i8gpTBHb5svAzzeVFxuZKMw4eYjmz3sCkMileT7L0XJgtKOU7KtdvCi4s2SzrsMXrHimrGWrOGva4xeGa8bHqLNpoZ5yXZP4Zx0mrlgIw57HajhPkvRSjjmKmnWCwIU66_9vBWXTCyHh33_LsOlWufo05Zavn0qiz4N7yBYVQWAW"/>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex flex-col gap-6 p-4">
+<!-- Hero Card -->
+<section class="w-full">
+<div class="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 group h-[420px]">
+<!-- Background Image -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Abstract vibrant blue and purple futuristic waves representing knowledge" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZNqcs12o2V_MCSPlE65iCg0rcObUN3NP4fpRD79vno8paSpjgOrRE3OwhSKm-ebNBLaBtLUo78GAXEcm-ENuc-0eXeRyRFEo-Y52PFLNkuTYdrzaIO9uaaxshG3xFlH11uxTBjFhyJugfqyx0E6XQsl2c411vnRxkJjfcj-pnETNalXEAu1HDwuFRSCmYkqy4U1Y3KGSbSs2ULYtn0_7mknS6V4wadxjL_HouRghWvhDij2yTsanrIIoZi3Q9L8d2w0Gpf8LjbO6I');">
+</div>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/30 to-background-dark opacity-90"></div>
+<!-- Content -->
+<div class="absolute inset-0 flex flex-col justify-end p-6">
+<div class="mb-2 inline-flex self-start rounded-md bg-primary/20 backdrop-blur-md px-2 py-1 border border-primary/30">
+<span class="text-xs font-bold text-blue-200 uppercase tracking-wider">Daily Challenge</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-bold text-white leading-tight mb-2 drop-shadow-md">Ready to master English?</h1>
+<p class="text-slate-200 text-base font-medium mb-6 max-w-[90%] drop-shadow-sm">Expand your world, one word at a time with our AI-powered lessons.</p>
+<button class="flex w-full items-center justify-center gap-2 rounded-xl bg-primary h-14 text-white text-base font-bold tracking-wide shadow-lg shadow-primary/40 hover:bg-blue-600 active:scale-[0.98] transition-all">
+<span>Start Learning</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Stats Row -->
+<section class="grid grid-cols-2 gap-4">
+<!-- Words Learned -->
+<div class="flex flex-col justify-between rounded-2xl bg-card-light dark:bg-card-dark p-4 border border-slate-200 dark:border-slate-800 shadow-sm h-32">
+<div class="flex items-start justify-between">
+<span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Words Today</span>
+<span class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+</div>
+<div>
+<div class="text-3xl font-bold text-slate-900 dark:text-white">12</div>
+<div class="text-xs text-slate-500 dark:text-slate-400 font-medium">+4 from yesterday</div>
+</div>
+</div>
+<!-- Weekly Goal -->
+<div class="flex flex-col justify-between rounded-2xl bg-card-light dark:bg-card-dark p-4 border border-slate-200 dark:border-slate-800 shadow-sm h-32">
+<div class="flex items-start justify-between">
+<span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Weekly Goal</span>
+<span class="material-symbols-outlined text-primary text-[20px]">flag</span>
+</div>
+<div class="w-full">
+<div class="flex items-end justify-between mb-2">
+<span class="text-xl font-bold text-slate-900 dark:text-white">85%</span>
+</div>
+<div class="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+<div class="h-full w-[85%] rounded-full bg-primary"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Continue Learning -->
+<section>
+<div class="flex items-center justify-between mb-3 px-1">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Continue Learning</h3>
+<button class="text-sm font-bold text-primary hover:text-blue-400">View All</button>
+</div>
+<!-- Recent Activity Card -->
+<div class="group relative flex items-center gap-4 rounded-2xl bg-card-light dark:bg-card-dark p-4 border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-primary/50 cursor-pointer">
+<div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400">
+<span class="material-symbols-outlined text-[32px]">school</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="truncate text-base font-bold text-slate-900 dark:text-white">Unit 4: Advanced Verbs</h4>
+<p class="mb-2 text-xs font-medium text-slate-500 dark:text-slate-400">45% Complete</p>
+<div class="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+<div class="h-full w-[45%] rounded-full bg-indigo-500"></div>
+</div>
+</div>
+<button class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</section>
+<!-- Categories Grid -->
+<section>
+<h3 class="mb-4 px-1 text-lg font-bold text-slate-900 dark:text-white">Categories</h3>
+<div class="grid grid-cols-2 gap-3">
+<!-- Synonyms -->
+<div class="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm transition-transform active:scale-[0.98] cursor-pointer group">
+<div class="absolute inset-0 bg-cover bg-center opacity-70 transition-opacity group-hover:opacity-50" data-alt="Close up of an open book with text focused" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAcdqv361zylaGRwfA2Ie98J5wwVlwXQdL5aX__KZIuzj5HBjkD0EgL26Mr0CBy5RlUTT4M9nOqSXadqsDnjjL3yjKQZN0ITB7H_weCazXemnqlfa6RwqnC-xMoMh9KeEMcyN3veV6EjwJ8GO9fAndXnCcH1qlvQvY_b03pv9ARQAxMKoeSk3XgolJc0JvPMzMXe2YvGh0f-my-W1xsKIsoTRx4955ZeDJ2s3BfnHpsyJ5hL5gyuyyELM5ZVF01uGzwnaU1XN43jEMS');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined mb-2 text-white/80">sync_alt</span>
+<p class="text-base font-bold leading-tight text-white">Synonyms</p>
+<p class="text-xs text-slate-300">24 Lessons</p>
+</div>
+</div>
+<!-- Antonyms -->
+<div class="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm transition-transform active:scale-[0.98] cursor-pointer group">
+<div class="absolute inset-0 bg-cover bg-center opacity-70 transition-opacity group-hover:opacity-50" data-alt="Abstract duality concept light and dark sides" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA84VPHVFPncuFDGbN620QN4fJjKfpXWEHhqlvi2u5qsY7WEToKH_jZD-TtQ04r9QMROcGf0-7pLPvYoWUSVpRNvORqgPc7qYvTYJ-Qj_DXqA2gT7tS35IbL7bvWHwN4iQ_1iStFN7XJTaYBcQEPN7aH5piBhfueIdwpBLMhVk-MekFqLSJQ8HuQwSpe62e68lrCcz387cvo_NcU2KjCG33mZi2_fkOKzo_RUDD8m29NL22BEv0CBJr1oiL0YZ6Pr_ZlgyYH3I32SHy');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined mb-2 text-white/80">compare_arrows</span>
+<p class="text-base font-bold leading-tight text-white">Antonyms</p>
+<p class="text-xs text-slate-300">18 Lessons</p>
+</div>
+</div>
+<!-- Grammar -->
+<div class="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm transition-transform active:scale-[0.98] cursor-pointer group">
+<div class="absolute inset-0 bg-cover bg-center opacity-70 transition-opacity group-hover:opacity-50" data-alt="Clean geometric architectural lines representing structure" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB18iwdmkEBBe84_SmQ-evoMjuYva-_x85Os_SHYTqGqhXTiqBv7MMqpl0m4H8Ur_Ln4lRZWM7OcLVYGMgvQBqD2D6x31edr_SndBqwKHShDj5_3rvlwLX2-JlWzjGn0NWUDtSp6G6gnHkC2qOs07ljn-KzCl0BYa-XKmB0ktojkrNOS9RpngTk5IAeS_gNUNJ-blQWtSzudMpZSnrkZjrWKuLaesKIuwoxpGf56CrIYuK_rF2wyvRSvrJaN8Cfzqcpn0V7tdZ7EdOw');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined mb-2 text-white/80">spellcheck</span>
+<p class="text-base font-bold leading-tight text-white">Grammar</p>
+<p class="text-xs text-slate-300">42 Lessons</p>
+</div>
+</div>
+<!-- Idioms -->
+<div class="relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl bg-slate-800 p-4 shadow-sm transition-transform active:scale-[0.98] cursor-pointer group">
+<div class="absolute inset-0 bg-cover bg-center opacity-70 transition-opacity group-hover:opacity-50" data-alt="Colorful abstract speech bubbles and conversation concept" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCbHb7lORkcP0p_10qOgAN4qKEjw2jPbNJiw2aPnQiS4H2uZLInXJslvlxGhdsblX1pMXbW5jA8tGqTGFjIuufVdtn3yR20dKAI_prfk-DvecO0QVWIBYdXYIvrpgj6NX_IXMSANL3E52gGJZEjJKT-Ou7ooBZeo8b41fWqlBzrjSLIRWifX7TEEIO3g61-K_YtBebN8MMF4-Lz7-HmQXJll3Wy7ASMiozTGgMhniU6b5WPTU7SHlerW5GgDK0tfhXptCmXC75De6LI');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined mb-2 text-white/80">campaign</span>
+<p class="text-base font-bold leading-tight text-white">Idioms</p>
+<p class="text-xs text-slate-300">15 Lessons</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 glass border-t border-slate-200/50 dark:border-slate-800/50 px-6 pb-6 pt-3">
+<div class="flex items-center justify-between">
+<button class="group flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[24px] transition-transform group-active:scale-90 filled" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="group flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+<span class="material-symbols-outlined text-[24px] transition-transform group-active:scale-90">explore</span>
+<span class="text-[10px] font-medium">Explore</span>
+</button>
+<button class="group flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+<span class="material-symbols-outlined text-[24px] transition-transform group-active:scale-90">bar_chart</span>
+<span class="text-[10px] font-medium">Stats</span>
+</button>
+<button class="group flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+<span class="material-symbols-outlined text-[24px] transition-transform group-active:scale-90">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</div>
+</nav>
+</body></html>
